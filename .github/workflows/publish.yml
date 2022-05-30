@@ -89,6 +89,7 @@ jobs:
 
       - name: Rename binary file
         run: | 
+          ls
           unzip proxy-adempiere-api.zip
           cp proxy-adempiere-api.tar.gz Proxy-ADempiere-API.tar.gz
 
@@ -113,6 +114,7 @@ jobs:
 
       - name: Rename binary file
         run: | 
+          ls
           unzip proxy-adempiere-api.zip
 
       - name: Login to GitHub Container Registry
