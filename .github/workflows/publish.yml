@@ -104,6 +104,9 @@ jobs:
       - build-app
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        
       - name: Download build dist app
         uses: actions/download-artifact@v2
         with:
