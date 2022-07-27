@@ -40,7 +40,7 @@ module.exports = ({ config }) => {
    */
   api.get('/grid', (req, res) => {
     if (req.query) {
-      service.listGeneralInfo({
+      service.listProductInfo({
         token: req.query.token,
         language: req.query.language,
         //  Default Value Query
