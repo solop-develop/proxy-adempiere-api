@@ -290,7 +290,14 @@
         "adempiere/user-interface/component/notes",
         "adempiere/user-interface/component/translation",
         "adempiere/form/addons/point-of-sales",
-        "adempiere/grid"
+        "adempiere/grid",
+        "adempiere/business-partner",
+        "adempiere/in-out",
+        "adempiere/invoice",
+        "adempiere/order",
+        "adempiere/payment",
+        "adempiere/invoice",
+        "adempiere/product"
       ],
       "images": {
         "baseUrl": "http://localhost",
