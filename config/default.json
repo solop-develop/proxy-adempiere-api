@@ -289,7 +289,8 @@
         "adempiere/user-interface/component/record-access",
         "adempiere/user-interface/component/notes",
         "adempiere/user-interface/component/translation",
-        "adempiere/form/addons/point-of-sales"
+        "adempiere/form/addons/point-of-sales",
+        "adempiere/grid"
       ],
       "images": {
         "baseUrl": "http://localhost",
