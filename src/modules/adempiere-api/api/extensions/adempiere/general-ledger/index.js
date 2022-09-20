@@ -72,7 +72,7 @@ module.exports = ({ config }) => {
         //  DSL Query
         filters: req.query.filters,
         contextAttributes: req.query.context_attributes,
-        value: req.query.value,
+        searchValue: req.query.search_value,
         //  Page Data
         pageSize: req.query.page_size,
         pageToken: req.query.page_token
