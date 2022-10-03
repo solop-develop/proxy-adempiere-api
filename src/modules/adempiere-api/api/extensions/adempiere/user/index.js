@@ -175,7 +175,8 @@ module.exports = ({ config }) => {
         roleUuid: req.body.role_uuid,
         organizationUuid: req.body.organization_uuid,
         warehouseUuid: req.body.warehouse_uuid,
-        language: req.query.language
+        language: req.query.language,
+        roleId: req.body.user_rol
       }, (err, response) => {
         if (response) {
           res.json({
