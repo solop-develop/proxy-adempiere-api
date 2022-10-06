@@ -3,6 +3,9 @@ import {
   convertEntityFromGRPC,
   getDecimalFromGRPC
 } from '@adempiere/grpc-api/lib/convertBaseDataType';
+import {
+  convertUnitOfMeasureFromGRPC
+} from '@adempiere/grpc-api/src/utils/convertCoreFunctionality'
 
 export function convertEntitiesListFromGRPC (entitiesList) {
   return {
@@ -22,7 +25,10 @@ export function convertResourceType (resourceType) {
       uuid: resourceType.getUuid(),
       value: resourceType.getValue(),
       name: resourceType.getName(),
-      description: resourceType.getDescription()
+      description: resourceType.getDescription(),
+      unit_of_measure: convertUnitOfMeasureFromGRPC(
+        resourceType.getUnitOfMeasure()
+      )
     }
   }
   return undefined;

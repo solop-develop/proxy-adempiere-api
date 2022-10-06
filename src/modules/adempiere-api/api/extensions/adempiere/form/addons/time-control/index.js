@@ -59,11 +59,14 @@ module.exports = ({ config }) => {
         token: req.query.token,
         language: req.query.language,
         //  DSL Query
-        resourceTypeId: req.body.resource_resource_type_id,
-        resourceTypeUuid: req.body.resource_resource_type_uuid,
-        name: req.query.name,
+        resourceTypeId: req.body.resource_type_id,
+        resourceTypeUuid: req.body.resource_type_uuid,
+        name: req.body.name,
         description: req.body.description,
+        isOnlyConfirmed: req.body.is_only_confirmed,
         isWaitingForOrdered: req.body.is_waiting_for_ordered,
+        dateFrom: req.body.date_from,
+        dateTo: req.body.date_to,
         //  Page Data
         pageSize: req.query.page_size,
         pageToken: req.query.page_token
