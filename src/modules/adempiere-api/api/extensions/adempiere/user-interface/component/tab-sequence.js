@@ -79,7 +79,6 @@ module.exports = ({ config }) => {
         language: req.query.language,
         //
         tabUuid: req.body.tab_uuid,
-        tableName: req.body.table_name,
         contextAttributes: req.body.context_attributes,
         entitiesList: req.body.entities_list
       }, (err, response) => {
