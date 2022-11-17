@@ -3,7 +3,21 @@ import {
   convertAttachmentFromGRPC,
   convertResourceReferenceFromGRPC
 } from '@adempiere/grpc-api/lib/convertBaseDataType';
-module.exports = ({ config, db }) => {
+
+const multer = require('multer');
+const mimeTypes = require('mime-types');
+
+const storage = multer.diskStorage({
+  destination: 'attachment/',
+  filename: (req, file, callback) => {
+    callback(null, file.originalname + '.' + (mimeTypes.extension(file.mimetype)));
+  }
+})
+const upload = multer({
+  storage: storage
+})
+
+module.exports = ({ config }) => {
   let api = Router();
   const ServiceApi = require('@adempiere/grpc-api')
   let service = new ServiceApi(config)
@@ -27,7 +41,7 @@ module.exports = ({ config, db }) => {
         tableName: req.query.table_name,
         id: req.query.id,
         uuid: req.query.uuid
-      }, function (err, response) {
+      }, (err, response) => {
         if (response) {
           res.json({
             code: 200,
@@ -41,6 +55,17 @@ module.exports = ({ config, db }) => {
         }
       })
     }
+  });
+
+  /**
+   * TODO: Add support in the BackEnd and Generate Proto
+   */
+  api.post('/save-attachment', upload.single('avatar'), (req, res) => {
+    console.log(req.avatar)
+    res.json({
+      code: 200,
+      result: 'OK'
+    })
   });
 
   /**
@@ -58,7 +83,7 @@ module.exports = ({ config, db }) => {
         token: req.query.token,
         language: req.query.language,
         imageId: req.query.image_id
-      }, function (err, response) {
+      }, (err, response) => {
         if (response) {
           res.json({
             code: 200,

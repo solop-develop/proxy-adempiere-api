@@ -116,7 +116,8 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.8.*",
     "vuepress": "^1.2.0",
-    "winston": "^3.2.0"
+    "winston": "^3.2.0",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "@types/cli-color": "^0.3.30",
