@@ -123,5 +123,38 @@ module.exports = ({ config }) => {
     }
   });
 
+  /**
+   * Delete Resource Reference Information
+   *
+   * req.query.token - user token
+   * req.query.image_id - id of image
+   * req.query.language - login language
+   *
+   * Details:https://sfa-docs.now.sh/guide/default-modules/api.html#get-vsbridgeuserorder-history
+   */
+  api.get('/delete-resource-reference', (req, res) => {
+    if (req.query) {
+      service.deleteResourceReference({
+        token: req.query.token,
+        language: req.query.language,
+        resourceId: req.query.resource_id,
+        resourceUuid: req.query.resource_uuid,
+        resourceName: req.query.resource_name
+      }, (err, response) => {
+        if (response) {
+          res.json({
+            code: 200,
+            result: 'Ok'
+          })
+        } else if (err) {
+          res.json({
+            code: 500,
+            result: err.details
+          })
+        }
+      })
+    }
+  });
+
   return api;
 };
