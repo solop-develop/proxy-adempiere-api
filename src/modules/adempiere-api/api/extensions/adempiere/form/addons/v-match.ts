@@ -62,7 +62,7 @@ function getListMatcheFromGRPC (matchedFrom) {
   };
 }
 
-module.exports = ({ config }: ExtensionAPIFunctionParameter)) => {
+module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
   const ServiceApi = require('@adempiere/grpc-api/src/services/matchPoReceiptInvoice');
   const service = new ServiceApi(config)
