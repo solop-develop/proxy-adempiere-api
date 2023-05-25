@@ -191,7 +191,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         paymentSelectionUuid: req.body.payment_selection_uuid,
         paymentRuleId: req.body.payment_rule_id,
         paymentRuleUuid: req.body.payment_rule_uuid,
-        documentNo: req.body.document_no
+        documentNo: req.body.document_no,
+        bankAccountId: req.body.bank_account_id
       }, (err, response) => {
         if (response) {
           res.json({
@@ -219,7 +220,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         paymentSelectionUuid: req.body.payment_selection_uuid,
         paymentRuleId: req.body.payment_rule_id,
         paymentRuleUuid: req.body.payment_rule_uuid,
-        documentNo: req.body.document_no
+        documentNo: req.body.document_no,
+        bankAccountId: req.body.bank_account_id
       }, (err, response) => {
         if (response) {
           res.json({
@@ -247,7 +249,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         paymentSelectionUuid: req.body.payment_selection_uuid,
         paymentRuleId: req.body.payment_rule_id,
         paymentRuleUuid: req.body.payment_rule_uuid,
-        documentNo: req.body.document_no
+        documentNo: req.body.document_no,
+        bankAccountId: req.body.bank_account_id
       }, (err, response) => {
         if (response) {
           res.json({
@@ -275,7 +278,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         paymentSelectionUuid: req.body.payment_selection_uuid,
         paymentRuleId: req.body.payment_rule_id,
         paymentRuleUuid: req.body.payment_rule_uuid,
-        documentNo: req.body.document_no
+        documentNo: req.body.document_no,
+        bankAccountId: req.body.bank_account_id
       }, (err, response) => {
         if (response) {
           res.json({
