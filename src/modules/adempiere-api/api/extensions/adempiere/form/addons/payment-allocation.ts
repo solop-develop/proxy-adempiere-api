@@ -396,18 +396,19 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   });
 
   api.post('/process-receipt', (req, res) => {
-    service.processReceipt({
+    service.process({
       token: req.headers.authorization,
       // DSL Query
       businessPartnerId: req.body.business_partner_id,
-      businessPartnerUuid: req.body.business_partner_uuid,
+      // businessPartnerUuid: req.body.business_partner_uuid,
       currencyId: req.body.currency_id,
-      currencyUuid: req.body.currency_uuid,
+      // currencyUuid: req.body.currency_uuid,
       chargeId: req.body.charge_id,
-      chargeUuid: req.body.charge_uuid,
+      // chargeUuid: req.body.charge_uuid,
       transactionOrganizationId: req.body.transaction_organization_id,
-      transactionOrganizationUuid: req.body.transaction_organization_uuid,
+      // transactionOrganizationUuid: req.body.transaction_organization_uuid,
       date: req.body.date,
+      totalDifference: req.body.total_difference,
       description: req.body.description,
       paymentSelectionsList: req.body.payment_selections,
       invoiceSelectionList: req.body.invoice_selections
