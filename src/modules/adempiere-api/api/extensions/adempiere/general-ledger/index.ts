@@ -25,7 +25,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const ServiceApi = require('@adempiere/grpc-api/src/services/generalLedger');
   const service = new ServiceApi(config);
 
-  api.get('/accouting-schemas', (req, res) => {
+  api.get('/accounting-schemas', (req, res) => {
     service.listAccountingSchemas({
       token: req.headers.authorization,
       //  DSL Query
@@ -40,8 +40,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
           result: {
             record_count: response.getRecordCount(),
             next_page_token: response.getNextPageToken(),
-            records: response.getRecordsList().map(accoutingSchema => {
-              return getLookupItemFromGRPC(accoutingSchema);
+            records: response.getRecordsList().map(accountingSchema => {
+              return getLookupItemFromGRPC(accountingSchema);
             })
           }
         });
@@ -112,8 +112,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
     });
   });
 
-  api.get('/accouting-documents', (req, res) => {
-    service.listAccoutingDocuments({
+  api.get('/accounting-documents', (req, res) => {
+    service.listAccountingDocuments({
       token: req.headers.authorization,
       //  DSL Query
       searchValue: req.query.search_value,
@@ -127,8 +127,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
           result: {
             record_count: response.getRecordCount(),
             next_page_token: response.getNextPageToken(),
-            records: response.getRecordsList().map(accoutingDocument => {
-              return getAccountingDocumentFromGRPC(accoutingDocument);
+            records: response.getRecordsList().map(accountingDocument => {
+              return getAccountingDocumentFromGRPC(accountingDocument);
             })
           }
         });
@@ -170,10 +170,10 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   });
 
   api.post('/accounting-facts', (req, res) => {
-    service.listAccoutingFacts({
+    service.listAccountingFacts({
       token: req.headers.authorization,
       //  DSL Query
-      accoutingSchemaId: req.query.accouting_schema_id,
+      accountingSchemaId: req.query.accounting_schema_id,
       postingType: req.query.posting_type,
       tableName: req.query.table_name,
       recordId: req.query.record_id,
