@@ -314,14 +314,14 @@ module.exports = ({ config }) => {
                 return getUserActivityFromGRPC(userActivity);
               })
             }
-          })
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
