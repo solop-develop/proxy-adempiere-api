@@ -2068,6 +2068,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         token: req.headers.authorization,
         posUuid: req.query.pos_uuid,
         documentNo: req.query.document_no,
+        documentStatus: req.query.document_status,
         businessPartnerUuid: req.query.business_partner_uuid,
         grandTotal: req.query.grand_total,
         openAmount: req.query.open_amount,
