@@ -3075,7 +3075,6 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         pageToken: req.query.page_token
       }, (err, response) => {
         if (response) {
-          console.log(response)
           res.json({
             code: 200,
             result: {
