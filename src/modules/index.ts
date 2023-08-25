@@ -4,6 +4,7 @@ import { DefaultCatalogModule } from '@storefront-api/default-catalog'
 // import { SampleApiModule } from './sample-api'
 import { ADempiereApi } from './adempiere-api'
 import { ADempiereStore } from './adempiere-store'
+import { ADempiereScheduler } from './scheduler'
 // import { TemplateModule } from './template-module'
 import { StorefrontApiModule } from '@storefront-api/lib/module'
 import * as magento2 from '@storefront-api/platform-magento2'
@@ -20,7 +21,8 @@ export let modules: StorefrontApiModule[] = [
   // SampleApiModule,
   // TemplateModule,
   ADempiereApi,
-  ADempiereStore
+  ADempiereStore,
+  ADempiereScheduler
 ]
 
 export default modules

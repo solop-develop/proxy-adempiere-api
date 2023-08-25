@@ -13,6 +13,7 @@ ENV \
 	REDIS_HOST="localhost" \
 	REDIS_PORT=6379 \
 	REDIS_DB=0 \
+	SCHEDULER_HOST="http://localhost:8080" \
 	AD_DEFAULT_HOST="localhost" \
 	AD_DEFAULT_PORT=50059 \
 	AD_TOKEN="" \

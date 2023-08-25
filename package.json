@@ -76,6 +76,7 @@
     "@storefront-api/platform-magento2": "1.0.0-rc.3",
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.4.0",
+    "axios": "1.4.0",
     "bodybuilder": "^2.2.21",
     "cli-color": "^2.0.0",
     "commander": "^2.19.0",
