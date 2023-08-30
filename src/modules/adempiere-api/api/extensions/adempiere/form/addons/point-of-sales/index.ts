@@ -17,6 +17,7 @@ import { Router } from 'express';
 import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
+  getCampaignFromGRPC,
   getOrderFromGRPC,
   getOrderLineFromGRPC
 } from './pointOfSalesFromGRPC';
@@ -55,105 +56,91 @@ import {
   convertWarehouseFromGRPC
 } from '@adempiere/grpc-api/src/utils/convertCoreFunctionality'
 
-function convertCampaignFromGRPC (campaignToConvert) {
-  if (!campaignToConvert) {
+function convertPointOfSalesFromGRPC (pointOfSales) {
+  if (!pointOfSales) {
     return undefined;
   }
   return {
-    id: campaignToConvert.getId(),
-    uuid: campaignToConvert.getUuid(),
-    name: campaignToConvert.getName(),
-    description: campaignToConvert.getDescription(),
-    start_date: campaignToConvert.getStartDate(),
-    end_date: campaignToConvert.getEndDate()
-  }
-}
-
-function convertPointOfSalesFromGRPC (pointOfSales) {
-  if (pointOfSales) {
-    return {
-      uuid: pointOfSales.getUuid(),
-      id: pointOfSales.getId(),
-      name: pointOfSales.getName(),
-      description: pointOfSales.getDescription(),
-      help: pointOfSales.getHelp(),
-      is_modify_price: pointOfSales.getIsModifyPrice(),
-      is_pos_required_pin: pointOfSales.getIsPosRequiredPin(),
-      is_aisle_seller: pointOfSales.getIsAisleSeller(),
-      is_shared_pos: pointOfSales.getIsSharedPos(),
-      document_type: convertDocumentTypeFromGRPC(
-        pointOfSales.getDocumentType()
-      ),
-      return_document_type: convertDocumentTypeFromGRPC(
-        pointOfSales.getReturnDocumentType()
-      ),
-      cash_bank_account: getBankAccountFromGRPC(
-        pointOfSales.getCashBankAccount()
-      ),
-      cash_transfer_bank_account: getBankAccountFromGRPC(
-        pointOfSales.getCashTransferBankAccount()
-      ),
-      sales_representative: convertSalesRepresentativeFromGRPC(
-        pointOfSales.getSalesRepresentative()
-      ),
-      template_customer: convertCustomerFromGRPC(
-        pointOfSales.getTemplateCustomer()
-      ),
-      price_list: convertPriceListFromGRPC(
-        pointOfSales.getPriceList()
-      ),
-      display_currency: getCurrencyFromGRPC(
-        pointOfSales.getDisplayCurrency()
-      ),
-      warehouse: convertWarehouseFromGRPC(
-        pointOfSales.getWarehouse()
-      ),
-      refund_reference_currency: getCurrencyFromGRPC(
-        pointOfSales.getRefundReferenceCurrency()
-      ),
-      conversion_type_uuid: pointOfSales.getConversionTypeUuid(),
-      key_layout_uuid: pointOfSales.getKeyLayoutUuid(),
-      is_allows_modify_quantity: pointOfSales.getIsAllowsModifyQuantity(),
-      is_allows_return_order: pointOfSales.getIsAllowsReturnOrder(),
-      is_allows_collect_order: pointOfSales.getIsAllowsCollectOrder(),
-      is_allows_create_order: pointOfSales.getIsAllowsCreateOrder(),
-      is_allows_confirm_shipment: pointOfSales.getIsAllowsConfirmShipment(),
-      is_display_discount: pointOfSales.getIsDisplayDiscount(),
-      is_display_tax_amount: pointOfSales.getIsDisplayTaxAmount(),
-      is_allows_allocate_seller: pointOfSales.getIsAllowsAllocateSeller(),
-      is_allows_concurrent_use: pointOfSales.getIsAllowsConcurrentUse(),
-      is_confirm_complete_shipment: pointOfSales.getIsConfirmCompleteShipment(),
-      is_allows_cash_closing: pointOfSales.getIsAllowsCashClosing(),
-      is_allows_cash_opening: pointOfSales.getIsAllowsCashOpening(),
-      is_allows_cash_withdrawal: pointOfSales.getIsAllowsCashWithdrawal(),
-      is_allows_apply_discount: pointOfSales.getIsAllowsApplyDiscount(),
-      default_campaign: convertCampaignFromGRPC(
-        pointOfSales.getDefaultCampaign()
-      ),
-      default_opening_charge_uuid: pointOfSales.getDefaultOpeningChargeUuid(),
-      default_withdrawal_charge_uuid: pointOfSales.getDefaultWithdrawalChargeUuid(),
-      maximum_refund_allowed: getDecimalFromGRPC(
-        pointOfSales.getMaximumRefundAllowed()
-      ),
-      maximum_discount_allowed: getDecimalFromGRPC(
-        pointOfSales.getMaximumDiscountAllowed()
-      ),
-      maximum_line_discount_allowed: getDecimalFromGRPC(
-        pointOfSales.getMaximumLineDiscountAllowed()
-      ),
-      write_off_amount_tolerance: getDecimalFromGRPC(
-        pointOfSales.getWriteOffAmountTolerance()
-      ),
-      is_allows_create_customer: pointOfSales.getIsAllowsCreateCustomer(),
-      is_allows_print_document: pointOfSales.getIsAllowsPrintDocument(),
-      is_allows_preview_document: pointOfSales.getIsAllowsPreviewDocument(),
-      is_pos_manager: pointOfSales.getIsPosManager(),
-      is_allows_modify_discount: pointOfSales.getIsAllowsModifyDiscount(),
-      is_keep_price_from_customer: pointOfSales.getIsKeepPriceFromCustomer(),
-      is_allows_modify_customer: pointOfSales.getIsAllowsModifyCustomer()
-    };
-  }
-  return undefined;
+    uuid: pointOfSales.getUuid(),
+    id: pointOfSales.getId(),
+    name: pointOfSales.getName(),
+    description: pointOfSales.getDescription(),
+    help: pointOfSales.getHelp(),
+    is_modify_price: pointOfSales.getIsModifyPrice(),
+    is_pos_required_pin: pointOfSales.getIsPosRequiredPin(),
+    is_aisle_seller: pointOfSales.getIsAisleSeller(),
+    is_shared_pos: pointOfSales.getIsSharedPos(),
+    document_type: convertDocumentTypeFromGRPC(
+      pointOfSales.getDocumentType()
+    ),
+    return_document_type: convertDocumentTypeFromGRPC(
+      pointOfSales.getReturnDocumentType()
+    ),
+    cash_bank_account: getBankAccountFromGRPC(
+      pointOfSales.getCashBankAccount()
+    ),
+    cash_transfer_bank_account: getBankAccountFromGRPC(
+      pointOfSales.getCashTransferBankAccount()
+    ),
+    sales_representative: convertSalesRepresentativeFromGRPC(
+      pointOfSales.getSalesRepresentative()
+    ),
+    template_customer: convertCustomerFromGRPC(
+      pointOfSales.getTemplateCustomer()
+    ),
+    price_list: convertPriceListFromGRPC(
+      pointOfSales.getPriceList()
+    ),
+    display_currency: getCurrencyFromGRPC(
+      pointOfSales.getDisplayCurrency()
+    ),
+    warehouse: convertWarehouseFromGRPC(
+      pointOfSales.getWarehouse()
+    ),
+    refund_reference_currency: getCurrencyFromGRPC(
+      pointOfSales.getRefundReferenceCurrency()
+    ),
+    conversion_type_uuid: pointOfSales.getConversionTypeUuid(),
+    key_layout_uuid: pointOfSales.getKeyLayoutUuid(),
+    is_allows_modify_quantity: pointOfSales.getIsAllowsModifyQuantity(),
+    is_allows_return_order: pointOfSales.getIsAllowsReturnOrder(),
+    is_allows_collect_order: pointOfSales.getIsAllowsCollectOrder(),
+    is_allows_create_order: pointOfSales.getIsAllowsCreateOrder(),
+    is_allows_confirm_shipment: pointOfSales.getIsAllowsConfirmShipment(),
+    is_display_discount: pointOfSales.getIsDisplayDiscount(),
+    is_display_tax_amount: pointOfSales.getIsDisplayTaxAmount(),
+    is_allows_allocate_seller: pointOfSales.getIsAllowsAllocateSeller(),
+    is_allows_concurrent_use: pointOfSales.getIsAllowsConcurrentUse(),
+    is_confirm_complete_shipment: pointOfSales.getIsConfirmCompleteShipment(),
+    is_allows_cash_closing: pointOfSales.getIsAllowsCashClosing(),
+    is_allows_cash_opening: pointOfSales.getIsAllowsCashOpening(),
+    is_allows_cash_withdrawal: pointOfSales.getIsAllowsCashWithdrawal(),
+    is_allows_apply_discount: pointOfSales.getIsAllowsApplyDiscount(),
+    default_campaign: getCampaignFromGRPC(
+      pointOfSales.getDefaultCampaign()
+    ),
+    default_opening_charge_uuid: pointOfSales.getDefaultOpeningChargeUuid(),
+    default_withdrawal_charge_uuid: pointOfSales.getDefaultWithdrawalChargeUuid(),
+    maximum_refund_allowed: getDecimalFromGRPC(
+      pointOfSales.getMaximumRefundAllowed()
+    ),
+    maximum_discount_allowed: getDecimalFromGRPC(
+      pointOfSales.getMaximumDiscountAllowed()
+    ),
+    maximum_line_discount_allowed: getDecimalFromGRPC(
+      pointOfSales.getMaximumLineDiscountAllowed()
+    ),
+    write_off_amount_tolerance: getDecimalFromGRPC(
+      pointOfSales.getWriteOffAmountTolerance()
+    ),
+    is_allows_create_customer: pointOfSales.getIsAllowsCreateCustomer(),
+    is_allows_print_document: pointOfSales.getIsAllowsPrintDocument(),
+    is_allows_preview_document: pointOfSales.getIsAllowsPreviewDocument(),
+    is_pos_manager: pointOfSales.getIsPosManager(),
+    is_allows_modify_discount: pointOfSales.getIsAllowsModifyDiscount(),
+    is_keep_price_from_customer: pointOfSales.getIsKeepPriceFromCustomer(),
+    is_allows_modify_customer: pointOfSales.getIsAllowsModifyCustomer()
+  };
 }
 
 function convertStock (stock) {
@@ -3071,7 +3058,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
               record_count: response.getRecordCount(),
               next_page_token: response.getNextPageToken(),
               records: response.getRecordsList().map(campaign => {
-                return convertCampaignFromGRPC(campaign);
+                return getCampaignFromGRPC(campaign);
               })
             }
           });

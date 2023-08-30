@@ -31,7 +31,7 @@ import {
 } from '@adempiere/grpc-api/lib/convertPointOfSales'
 import { getResourceAssignmentFromGRPC } from '../time-record';
 
-function convertCampaignFromGRPC (campaignToConvert) {
+export function getCampaignFromGRPC (campaignToConvert) {
   if (!campaignToConvert) {
     return undefined;
   }
@@ -95,7 +95,7 @@ export function getOrderFromGRPC (order) {
     refund_amount: getDecimalFromGRPC(
       order.getRefundAmount()
     ),
-    campaign: convertCampaignFromGRPC(
+    campaign: getCampaignFromGRPC(
       order.getCampaign()
     ),
     date_ordered: new Date(order.getDateOrdered()),
