@@ -17,6 +17,10 @@ import { Router } from 'express';
 import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
+  getOrderFromGRPC,
+  getOrderLineFromGRPC
+} from './pointOfSalesFromGRPC';
+import {
   getDecimalFromGRPC,
   getProcessLogFromGRPC
 } from '@adempiere/grpc-api/src/utils/baseDataTypeFromGRPC.js';
@@ -50,7 +54,6 @@ import {
   convertPriceListFromGRPC,
   convertWarehouseFromGRPC
 } from '@adempiere/grpc-api/src/utils/convertCoreFunctionality'
-import { convertResourceAssignment } from '../../../util/convertData';
 
 function convertCampaignFromGRPC (campaignToConvert) {
   if (!campaignToConvert) {
@@ -307,208 +310,43 @@ function convertPaymentFromGRPC (payment) {
   return undefined;
 }
 
-function convertPaymentReferenceFromGRPC (refund) {
-  if (refund) {
-    return {
-      uuid: refund.getUuid(),
-      id: refund.getId(),
-      sales_representative: convertSalesRepresentativeFromGRPC(
-        refund.getSalesRepresentative()
-      ),
-      amount: getDecimalFromGRPC(
-        refund.getAmount()
-      ),
-      source_amount: getDecimalFromGRPC(
-        refund.getSourceAmount()
-      ),
-      converted_amount: getDecimalFromGRPC(
-        refund.getConvertedAmount()
-      ),
-      tender_type_code: refund.getTenderTypeCode(),
-      currency: getCurrencyFromGRPC(
-        refund.getCurrency()
-      ),
-      description: refund.getDescription(),
-      order_uuid: refund.getOrderUuid(),
-      customer_bank_account_uuid: refund.getCustomerBankAccountUuid(),
-      payment_account_date: new Date(refund.getPaymentAccountDate()),
-      payment_date: new Date(refund.getPaymentDate()),
-      is_paid: refund.getIsPaid(),
-      is_receipt: refund.getIsReceipt(),
-      payment_method: convertPaymentMethod(
-        refund.getPaymentMethod()
-      ),
-      is_automatic: refund.getIsAutomatic(),
-      is_processed: refund.getIsProcessed()
-    };
+function getPaymentReferenceFromGRPC (refund) {
+  if (!refund) {
+    return undefined;
   }
-  return undefined;
-}
-
-function convertOrderFromGRPC (order) {
-  if (order) {
-    return {
-      uuid: order.getUuid(),
-      id: order.getId(),
-      document_no: order.getDocumentNo(),
-      order_reference: order.getOrderReference(),
-      is_delivered: order.getIsDelivered(),
-      description: order.getDescription(),
-      document_type: convertDocumentTypeFromGRPC(
-        order.getDocumentType()
-      ),
-      sales_representative: convertSalesRepresentativeFromGRPC(
-        order.getSalesRepresentative()
-      ),
-      price_list: convertPriceListFromGRPC(
-        order.getPriceList()
-      ),
-      warehouse: convertWarehouseFromGRPC(
-        order.getWarehouse()
-      ),
-      document_status: convertDocumentStatusFromGRPC(
-        order.getDocumentStatus()
-      ),
-      total_lines: getDecimalFromGRPC(
-        order.getTotalLines()
-      ),
-      tax_amount: getDecimalFromGRPC(
-        order.getTaxAmount()
-      ),
-      discount_amount: getDecimalFromGRPC(
-        order.getDiscountAmount()
-      ),
-      grand_total: getDecimalFromGRPC(
-        order.getGrandTotal()
-      ),
-      display_currency_rate: getDecimalFromGRPC(
-        order.getDisplayCurrencyRate()
-      ),
-      open_amount: getDecimalFromGRPC(
-        order.getOpenAmount()
-      ),
-      payment_amount: getDecimalFromGRPC(
-        order.getPaymentAmount()
-      ),
-      refund_amount: getDecimalFromGRPC(
-        order.getRefundAmount()
-      ),
-      campaign: convertCampaignFromGRPC(
-        order.getCampaign()
-      ),
-      date_ordered: new Date(order.getDateOrdered()),
-      customer: convertCustomerFromGRPC(
-        order.getCustomer()
-      ),
-      charge_amount: getDecimalFromGRPC(
-        order.getChargeAmount()
-      ),
-      credit_amount: getDecimalFromGRPC(
-        order.getCreditAmount()
-      )
-    };
-  }
-  return undefined;
-}
-
-function convertOrderLineFromGRPC (orderLineToConvert) {
-  if (orderLineToConvert) {
-    const {
-      convertChargeFromGRPC,
-      convertProductFromGRPC,
-      convertTaxRateFromGRPC
-    } = require('@adempiere/grpc-api/src/utils/convertCoreFunctionality');
-
-    return {
-      uuid: orderLineToConvert.getUuid(),
-      order_uuid: orderLineToConvert.getOrderUuid(),
-      line: orderLineToConvert.getLine(),
-      product: convertProductFromGRPC(
-        orderLineToConvert.getProduct()
-      ),
-      charge: convertChargeFromGRPC(
-        orderLineToConvert.getCharge()
-      ),
-      description: orderLineToConvert.getDescription(),
-      line_description: orderLineToConvert.getLineDescription(),
-      quantity: getDecimalFromGRPC(
-        orderLineToConvert.getQuantity()
-      ),
-      quantity_ordered: getDecimalFromGRPC(
-        orderLineToConvert.getQuantityOrdered()
-      ),
-      available_quantity: getDecimalFromGRPC(
-        orderLineToConvert.getAvailableQuantity()
-      ),
-      price_list: getDecimalFromGRPC(
-        orderLineToConvert.getPriceList()
-      ),
-      price: getDecimalFromGRPC(
-        orderLineToConvert.getPrice()
-      ),
-      price_base: getDecimalFromGRPC(
-        orderLineToConvert.getPriceBase()
-      ),
-      discount_rate: getDecimalFromGRPC(
-        orderLineToConvert.getDiscountRate()
-      ),
-      discount_amount: getDecimalFromGRPC(
-        orderLineToConvert.getDiscountAmount()
-      ),
-      tax_amount: getDecimalFromGRPC(
-        orderLineToConvert.getTaxAmount()
-      ),
-      base_tax_amount: getDecimalFromGRPC(
-        orderLineToConvert.getBaseTaxAmount()
-      ),
-      list_tax_amount: getDecimalFromGRPC(
-        orderLineToConvert.getListTaxAmount()
-      ),
-      price_with_tax: getDecimalFromGRPC(
-        orderLineToConvert.getPriceWithTax()
-      ),
-      price_list_with_tax: getDecimalFromGRPC(
-        orderLineToConvert.getPriceListWithTax()
-      ),
-      price_base_with_tax: getDecimalFromGRPC(
-        orderLineToConvert.getPriceBaseWithTax()
-      ),
-      tax_rate: convertTaxRateFromGRPC(
-        orderLineToConvert.getTaxRate()
-      ),
-      total_discount_amount: getDecimalFromGRPC(
-        orderLineToConvert.getTotalDiscountAmount()
-      ),
-      total_tax_amount: getDecimalFromGRPC(
-        orderLineToConvert.getTotalTaxAmount()
-      ),
-      total_base_amount: getDecimalFromGRPC(
-        orderLineToConvert.getTotalBaseAmount()
-      ),
-      total_base_amount_with_tax: getDecimalFromGRPC(
-        orderLineToConvert.getTotalBaseAmountWithTax()
-      ),
-      total_amount: getDecimalFromGRPC(
-        orderLineToConvert.getTotalAmount()
-      ),
-      total_amount_with_tax: getDecimalFromGRPC(
-        orderLineToConvert.getTotalAmountWithTax()
-      ),
-      warehouse: convertWarehouseFromGRPC(
-        orderLineToConvert.getWarehouse()
-      ),
-      uom: convertProductConversionFromGRPC(
-        orderLineToConvert.getUom()
-      ),
-      product_uom: convertProductConversionFromGRPC(
-        orderLineToConvert.getProductUom()
-      ),
-      resource_assignment: convertResourceAssignment(
-        orderLineToConvert.getResourceAssignment()
-      )
-    };
-  }
-  return undefined;
+  return {
+    uuid: refund.getUuid(),
+    id: refund.getId(),
+    sales_representative: convertSalesRepresentativeFromGRPC(
+      refund.getSalesRepresentative()
+    ),
+    amount: getDecimalFromGRPC(
+      refund.getAmount()
+    ),
+    source_amount: getDecimalFromGRPC(
+      refund.getSourceAmount()
+    ),
+    converted_amount: getDecimalFromGRPC(
+      refund.getConvertedAmount()
+    ),
+    tender_type_code: refund.getTenderTypeCode(),
+    currency: getCurrencyFromGRPC(
+      refund.getCurrency()
+    ),
+    description: refund.getDescription(),
+    order_uuid: refund.getOrderUuid(),
+    customer_bank_account_uuid: refund.getCustomerBankAccountUuid(),
+    payment_account_date: new Date(refund.getPaymentAccountDate()),
+    payment_date: new Date(refund.getPaymentDate()),
+    is_paid: refund.getIsPaid(),
+    is_receipt: refund.getIsReceipt(),
+    payment_method: convertPaymentMethod(
+      refund.getPaymentMethod()
+    ),
+    is_automatic: refund.getIsAutomatic(),
+    is_processed: refund.getIsProcessed(),
+    invoice_reference_id: refund.getInvoiceReferenceId()
+  };
 }
 
 function convertShipmentLineFromGRPC (shipmentLineToConvert) {
@@ -799,15 +637,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -832,15 +670,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -865,15 +703,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -965,15 +803,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -1126,20 +964,21 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         isRefund: req.body.is_refund,
         collectingAgentUuid: req.body.collecting_agent_uuid,
         referenceBankAccountUuid: req.body.reference_bank_account_uuid,
-        customerBankAccountUuid: req.body.customer_bank_account_uuid
+        customerBankAccountUuid: req.body.customer_bank_account_uuid,
+        invoiceReferenceId: req.body.invoice_reference_id
       }, (err, response) => {
         if (response) {
           res.json({
             code: 200,
             result: convertPaymentFromGRPC(response)
-          })
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -1180,20 +1019,21 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         currencyUuid: req.body.currency_uuid,
         conversionTypeUuid: req.body.conversion_type_uuid,
         paymentMethodUuid: req.body.payment_method_uuid,
-        salesRepresentativeUuid: req.body.sales_representative_uuid
+        salesRepresentativeUuid: req.body.sales_representative_uuid,
+        invoiceReferenceId: req.body.invoice_reference_id
       }, (err, response) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertPaymentReferenceFromGRPC(response)
-          })
+            result: getPaymentReferenceFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -1226,17 +1066,17 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
               record_count: response.getRecordCount(),
               next_page_token: response.getNextPageToken(),
               records: response.getPaymentReferencesList().map(refundReference => {
-                return convertPaymentReferenceFromGRPC(refundReference)
+                return getPaymentReferenceFromGRPC(refundReference);
               })
             }
-          })
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -1655,7 +1495,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         tenderTypeCode: req.body.tender_type_code,
         paymentAccountDate: req.body.payment_account_date,
         paymentMethodUuid: req.body.payment_method_uuid,
-        referenceBankAccountUuid: req.body.reference_bank_account_uuid
+        referenceBankAccountUuid: req.body.reference_bank_account_uuid,
+        invoiceReferenceId: req.body.invoice_reference_id
       }, (err, response) => {
         if (response) {
           res.json({
@@ -1901,15 +1742,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderLineFromGRPC(response)
-          })
+            result: getOrderLineFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -1982,15 +1823,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -2026,15 +1867,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderLineFromGRPC(response)
-          })
+            result: getOrderLineFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -2094,15 +1935,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -2136,7 +1977,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
     if (req.body) {
       let payments = []
       if (req.body.payments) {
-        payments = req.body.payments
+        payments = req.body.payments;
       }
       service.processOrder({
         token: req.headers.authorization,
@@ -2164,15 +2005,15 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         if (response) {
           res.json({
             code: 200,
-            result: convertOrderFromGRPC(response)
-          })
+            result: getOrderFromGRPC(response)
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -2235,17 +2076,17 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
               record_count: response.getRecordCount(),
               next_page_token: response.getNextPageToken(),
               records: response.getOrdersList().map(order => {
-                return convertOrderFromGRPC(order)
+                return getOrderFromGRPC(order);
               })
             }
-          })
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
@@ -2275,17 +2116,17 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
               record_count: response.getRecordCount(),
               next_page_token: response.getNextPageToken(),
               records: response.getOrderLinesList().map(orderLine => {
-                return convertOrderLineFromGRPC(orderLine)
+                return getOrderLineFromGRPC(orderLine);
               })
             }
-          })
+          });
         } else if (err) {
           res.json({
             code: 500,
             result: err.details
-          })
+          });
         }
-      })
+      });
     }
   });
 
