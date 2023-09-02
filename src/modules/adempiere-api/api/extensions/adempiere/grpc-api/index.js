@@ -662,7 +662,6 @@ class Api {
   }, callback) {
     const { ListLookupItemsRequest } = require('./grpc/proto/business_pb.js');
     const request = new ListLookupItemsRequest();
-
     request.setProcessParameterUuid(processParameterUuid);
     request.setFieldUuid(fieldUuid);
     request.setBrowseFieldUuid(browseFieldUuid);
@@ -675,7 +674,6 @@ class Api {
     if (!this.isEmptyValue(contextAttributes)) {
       const { getKeyValueToGRPC } = require('./utils/baseDataTypeToGRPC.js');
       const { getTypeOfValue } = require('./utils/valueUtils.js');
-
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
       }
@@ -894,7 +892,7 @@ class Api {
   }
 
   isEmptyValue (value) {
-    const { isEmptyValue } = require('./src/utils/valueUtils.js');
+    const { isEmptyValue } = require('./utils/valueUtils.js');
 
     return isEmptyValue(value);
   }
