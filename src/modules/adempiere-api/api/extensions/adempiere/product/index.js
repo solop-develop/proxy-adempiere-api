@@ -3,7 +3,7 @@ import { convertEntitiesListFromGRPC } from '../util/convertData';
 
 module.exports = ({ config }) => {
   let api = Router();
-  const ServiceApi = require('@adempiere/grpc-api/src/services/product')
+  const ServiceApi = require('.././grpc-api/services/product')
   let service = new ServiceApi(config);
 
   /**
@@ -56,7 +56,7 @@ module.exports = ({ config }) => {
         //  Page Data
         pageSize: req.query.page_size,
         pageToken: req.query.page_token
-      }, function (err, response) {
+      }, (err, response) => {
         if (response) {
           res.json({
             code: 200,

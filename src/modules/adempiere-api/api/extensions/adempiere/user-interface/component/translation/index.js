@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
   convertTranslationFromGRPC
-} from '@adempiere/grpc-api/lib/convertBaseDataType';
+} from '../../.././grpc-api/lib/convertBaseDataType';
 module.exports = ({ config, db }) => {
   let api = Router();
-  const ServiceApi = require('@adempiere/grpc-api')
+  const ServiceApi = require('../../.././grpc-api')
   let service = new ServiceApi(config)
 
   /**
@@ -30,7 +30,7 @@ module.exports = ({ config, db }) => {
         //  Page Data
         pageSize: req.query.page_size,
         pageToken: req.query.page_token
-      }, function (err, response) {
+      }, (err, response) => {
         if (response) {
           res.json({
             code: 200,
