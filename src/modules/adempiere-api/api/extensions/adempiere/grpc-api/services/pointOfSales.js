@@ -14,15 +14,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidInteger } = require('.././utils/valueUtils.js');
-const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger } = require('../utils/valueUtils.js');
+const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
 
 class PointOfSales {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/point_of_sales_pb.js');
+  stubFile = require('../grpc/proto/point_of_sales_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -46,7 +46,7 @@ class PointOfSales {
   // Init connection
   initPointOfSalesService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/point_of_sales_grpc_pb');
+    const services = require('../grpc/proto/point_of_sales_grpc_pb');
     this.pointOfSales = new services.StoreClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -170,7 +170,7 @@ class PointOfSales {
     request.setWarehouseUuid(warehouseUuid)
     request.setValidFrom(validFrom)
     //
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     //  TODO: Add support to all parameters
     request.setCriteria(
       getCriteriaToGRPC({
@@ -326,7 +326,7 @@ class PointOfSales {
     request.setResourceAssignmentUuid(resourceAssignmentUuid);
     request.setDescription(description)
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
     if (quantity) {
       request.setQuantity(getDecimalToGRPC(quantity))
     }
@@ -399,7 +399,7 @@ class PointOfSales {
     request.setDocumentTypeUuid(documentTypeUuid)
     request.setDescription(description)
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
     request.setDiscountRate(
       getDecimalToGRPC(discountRate)
     );
@@ -449,7 +449,7 @@ class PointOfSales {
     request.setOrderLineUuid(orderLineUuid)
     request.setDescription(description)
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );
@@ -531,7 +531,7 @@ class PointOfSales {
     const { ListOrdersRequest } = this.stubFile;
     const request = new ListOrdersRequest();
 
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setCriteria(
       getCriteriaToGRPC({
         tableName,
@@ -546,7 +546,7 @@ class PointOfSales {
     request.setDocumentNo(documentNo)
     request.setBusinessPartnerUuid(businessPartnerUuid)
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
     if (grandTotal) {
       request.setGrandTotal(
         getDecimalToGRPC(grandTotal)
@@ -661,7 +661,7 @@ class PointOfSales {
     request.setOrderLineUuid(orderLineUuid)
     request.setDescription(description)
     if (quantity) {
-      const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+      const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
       request.setQuantity(
         getDecimalToGRPC(quantity)
       );
@@ -840,7 +840,7 @@ class PointOfSales {
       request.setCurrencyUuid(currencyUuid)
     }
     if (amount) {
-      const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+      const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
       request.setAmount(
         getDecimalToGRPC(amount)
       );
@@ -917,7 +917,7 @@ class PointOfSales {
       request.setCurrencyUuid(currencyUuid)
     }
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
     if (amount) {
       request.setAmount(
         getDecimalToGRPC(amount)
@@ -988,7 +988,7 @@ class PointOfSales {
       request.setPaymentMethodUuid(paymentMethodUuid)
     }
     if (amount) {
-      const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+      const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
       request.setAmount(
         getDecimalToGRPC(amount)
       );
@@ -1151,13 +1151,13 @@ class PointOfSales {
         paymentRequest.setCurrencyUuid(payment.currencyUuid)
       }
       if (payment.amount) {
-        const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+        const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
         paymentRequest.setAmount(
           getDecimalToGRPC(payment.amount)
         );
       }
       if (payment.paymentDate) {
-        const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+        const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
         paymentRequest.setPaymentDate(
           getValueToGRPC({
             value: payment.paymentDate
@@ -1228,13 +1228,13 @@ class PointOfSales {
         paymentRequest.setCurrencyUuid(payment.currencyUuid)
       }
       if (payment.amount) {
-        const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+        const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
         paymentRequest.setAmount(
           getDecimalToGRPC(payment.amount)
         );
       }
       if (payment.paymentDate) {
-        const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+        const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
         paymentRequest.setPaymentDate(
           getValueToGRPC({
             value: payment.paymentDate
@@ -1371,7 +1371,7 @@ class PointOfSales {
     const { ListPaymentsRequest } = this.stubFile;
     const request = new ListPaymentsRequest();
 
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setCriteria(
       getCriteriaToGRPC({
         tableName,
@@ -1451,13 +1451,13 @@ class PointOfSales {
         paymentRequest.setCurrencyUuid(payment.currencyUuid)
       }
       if (payment.amount) {
-        const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+        const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
         paymentRequest.setAmount(
           getDecimalToGRPC(payment.amount)
         );
       }
       if (payment.paymentDate) {
-        const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+        const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
         paymentRequest.setPaymentDate(
           getValueToGRPC({
             value: payment.paymentDate
@@ -1519,7 +1519,7 @@ class PointOfSales {
 
     request.setRequestedAccess(requestedAccess);
     if (requestedAmount) {
-      const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC');
+      const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC');
       request.setRequestedAmount(
         getDecimalToGRPC(requestedAmount)
       );
@@ -1690,7 +1690,7 @@ class PointOfSales {
     additionalAttributes
   }, callback) {
     const { CreateCustomerRequest, AddressRequest } = this.stubFile;
-    const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     const request = new CreateCustomerRequest();
 
     request.setValue(value)
@@ -1775,7 +1775,7 @@ class PointOfSales {
     additionalAttributes
   }, callback) {
     const { UpdateCustomerRequest, AddressRequest } = this.stubFile;
-    const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     const request = new UpdateCustomerRequest();
 
     request.setPosUuid(posUuid);

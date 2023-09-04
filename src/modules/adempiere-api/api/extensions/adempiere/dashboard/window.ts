@@ -1,5 +1,5 @@
 /************************************************************************************
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                     *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                  *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                     *
  * This program is free software: you can redistribute it and/or modify             *
  * it under the terms of the GNU General Public License as published by             *
@@ -19,11 +19,11 @@ import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 import {
   getWindowDashboardFromGRPC,
   getWindowMetricsFromGRPC
-} from '.././grpc-api/utils/dashboardingFromGRPC';
+} from '../grpc-api/utils/dashboardingFromGRPC';
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api/services/dashboarding.js');
+  const ServiceApi = require('../grpc-api/services/dashboarding.js');
   const service = new ServiceApi(config);
 
   /**

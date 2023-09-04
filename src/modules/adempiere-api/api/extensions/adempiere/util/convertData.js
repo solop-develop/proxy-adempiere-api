@@ -1,13 +1,13 @@
 
 import {
   getDecimalFromGRPC
-} from '.././grpc-api/utils/baseDataTypeFromGRPC.js';
+} from '../grpc-api/utils/baseDataTypeFromGRPC.js';
 import {
   convertEntityFromGRPC
-} from '.././grpc-api/lib/convertBaseDataType';
+} from '../grpc-api/lib/convertBaseDataType';
 import {
   convertUnitOfMeasureFromGRPC
-} from '.././grpc-api/utils/convertCoreFunctionality'
+} from '../grpc-api/utils/convertCoreFunctionality'
 
 export function convertEntitiesListFromGRPC (entitiesList) {
   return {

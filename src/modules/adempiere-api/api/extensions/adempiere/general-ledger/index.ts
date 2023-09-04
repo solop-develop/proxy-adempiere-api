@@ -18,11 +18,11 @@ import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import { convertEntitiesListFromGRPC } from '../util/convertData';
 import { getAccountingDocumentFromGRPC } from '../util/generalLedgerFromGRPC';
-import { getLookupItemFromGRPC } from '.././grpc-api/utils/userInterfaceFromGRPC';
+import { getLookupItemFromGRPC } from '../grpc-api/utils/userInterfaceFromGRPC';
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api/services/generalLedger');
+  const ServiceApi = require('../grpc-api/services/generalLedger');
   const service = new ServiceApi(config);
 
   api.get('/accounting-schemas', (req, res) => {

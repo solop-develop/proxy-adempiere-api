@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC General Ledger Client                                     *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,16 +14,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
+const { getMetadata } = require('../utils/metadata.js');
 const {
   isEmptyValue, getTimestamp, getTypeOfValue, getValidInteger
-} = require('.././utils/valueUtils.js');
+} = require('../utils/valueUtils.js');
 
 class GeneralLedger {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/general_ledger_pb.js');
+  stubFile = require('../grpc/proto/general_ledger_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -47,7 +47,7 @@ class GeneralLedger {
   // Init connection
   initGeneralLedgerService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/general_ledger_grpc_pb');
+    const services = require('../grpc/proto/general_ledger_grpc_pb');
     this.generalLedger = new services.GeneralLedgerClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -75,7 +75,7 @@ class GeneralLedger {
     const request = new ListAccountingCombinationsRequest();
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -95,7 +95,7 @@ class GeneralLedger {
     }
 
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       request.setFilters(
         getCriteriaToGRPC({
@@ -160,7 +160,7 @@ class GeneralLedger {
     } = this.stubFile
     const {
       getKeyValueToGRPC
-    } = require('.././utils/baseDataTypeToGRPC.js');
+    } = require('../utils/baseDataTypeToGRPC.js');
     const request = new SaveAccountingCombinationRequest();
 
     request.setId(
@@ -409,7 +409,7 @@ class GeneralLedger {
 
     // accoutiing dimensions filters
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       request.setFilters(
         getCriteriaToGRPC({

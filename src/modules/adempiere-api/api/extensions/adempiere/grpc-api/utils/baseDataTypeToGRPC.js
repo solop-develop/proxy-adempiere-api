@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/base_data_type_pb.js');
+const stubFile = require('../grpc/proto/base_data_type_pb.js');
 
 /**
  * Get value from a string to grpc
@@ -41,7 +41,7 @@ function getValueStringToGRPC (value) {
  * @return {Value.BOOLEAN}
  */
 function getValueBooleanToGRPC (value) {
-  const { Value } = require('.././grpc/proto/base_data_type_pb.js');
+  const { Value } = require('../grpc/proto/base_data_type_pb.js');
   const { ValueType } = Value;
   const valueInstance = new Value();
 
@@ -63,7 +63,7 @@ function getValueBooleanToGRPC (value) {
  * @return {Value.DATE}
  */
 function getValueDateToGRPC (value) {
-  const { Value } = require('.././grpc/proto/base_data_type_pb.js');
+  const { Value } = require('../grpc/proto/base_data_type_pb.js');
   const { ValueType } = Value;
   const valueInstance = new Value();
 
@@ -100,7 +100,7 @@ function getValueIntegerToGRPC (value) {
  * @return {Value.DECIMAL}
  */
 function getValueDecimalToGRPC (value) {
-  const { Value } = require('.././grpc/proto/base_data_type_pb.js');
+  const { Value } = require('../grpc/proto/base_data_type_pb.js');
   const { ValueType } = Value;
   const valueInstance = new Value();
 
@@ -204,7 +204,7 @@ function getValueToGRPCWithoutValueType ({ value }) {
       break;
 
     default:
-      const { Value } = require('.././grpc/proto/base_data_type_pb.js');
+      const { Value } = require('../grpc/proto/base_data_type_pb.js');
       convertedValue = new Value();
       break;
   }
@@ -219,7 +219,7 @@ function getValueToGRPCWithoutValueType ({ value }) {
  * @returns {Value}
  */
 function getValueToGRPCWithValueType ({ value, valueType }) {
-  const { Value } = require('.././grpc/proto/base_data_type_pb.js');
+  const { Value } = require('../grpc/proto/base_data_type_pb.js');
   const { ValueType } = Value;
   let convertedValue;
 

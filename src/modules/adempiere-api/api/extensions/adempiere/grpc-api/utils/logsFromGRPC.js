@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Logs Client Convert Utils                                 *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/logs_pb.js');
+const stubFile = require('../grpc/proto/logs_pb.js');
 
 function getRecentItemFromGRPC (recentItem) {
   if (!recentItem) {

@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Express Movement Client                                   *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger } = require('../utils/valueUtils.js');
 
 class ExpressMovement {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/express_movement_pb.js');
+  stubFile = require('../grpc/proto/express_movement_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class ExpressMovement {
   // Init connection
   initExpressMovementService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/express_movement_grpc_pb.js');
+    const services = require('../grpc/proto/express_movement_grpc_pb.js');
     this.expressMovement = new services.ExpressMovementClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -270,7 +270,7 @@ class ExpressMovement {
     );
     request.setProductUuid(productUuid);
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );
@@ -386,7 +386,7 @@ class ExpressMovement {
     request.setUuid(uuid);
     request.setDescription(description);
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );

@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Product Client                                            *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class Product {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/product_pb.js');
+  stubFile = require('../grpc/proto/product_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class Product {
   // Init connection
   initProductService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/product_grpc_pb');
+    const services = require('../grpc/proto/product_grpc_pb');
     this.product = new services.ProductClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -86,7 +86,7 @@ class Product {
 
     request.setSearchValue(searchValue);
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       request.setFilters(
         getCriteriaToGRPC({
           filters
@@ -95,8 +95,7 @@ class Product {
     }
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);

@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Workflow Client Convert Utils                             *
- * Copyright (C) 2012-2020 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -27,7 +27,7 @@
   */
 function getWorkflowState ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { WorkflowState } = require('.././grpc/proto/workflow_pb.js');
+  const { WorkflowState } = require('../grpc/proto/workflow_pb.js');
 
   return getValueOrKeyEnum({
     list: WorkflowState,
@@ -48,7 +48,7 @@ function getWorkflowState ({ key, value }) {
   */
 function getPriority ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { Priority } = require('.././grpc/proto/workflow_pb.js');
+  const { Priority } = require('../grpc/proto/workflow_pb.js');
 
   return getValueOrKeyEnum({
     list: Priority,
@@ -67,7 +67,7 @@ function getPriority ({ key, value }) {
   */
 function getEventType ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { EventType } = require('.././grpc/proto/workflow_pb');
+  const { EventType } = require('../grpc/proto/workflow_pb');
 
   return getValueOrKeyEnum({
     list: EventType,
@@ -96,7 +96,7 @@ function getEventType ({ key, value }) {
   */
 function getAction ({ value, key }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { Action } = require('.././grpc/proto/workflow_pb');
+  const { Action } = require('../grpc/proto/workflow_pb');
 
   return getValueOrKeyEnum({
     list: Action,
@@ -114,7 +114,7 @@ function getAction ({ value, key }) {
   */
 function getConditionType ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { ConditionType } = require('.././grpc/proto/workflow_pb');
+  const { ConditionType } = require('../grpc/proto/workflow_pb');
 
   return getValueOrKeyEnum({
     list: ConditionType,
@@ -139,7 +139,7 @@ function getConditionType ({ key, value }) {
   */
 function getOperation ({ value, key }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { Operation } = require('.././grpc/proto/workflow_pb');
+  const { Operation } = require('../grpc/proto/workflow_pb');
 
   return getValueOrKeyEnum({
     list: Operation,
@@ -159,7 +159,7 @@ function getOperation ({ value, key }) {
   */
 function getPublishStatus ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { PublishStatus } = require('.././grpc/proto/workflow_pb');
+  const { PublishStatus } = require('../grpc/proto/workflow_pb');
 
   return getValueOrKeyEnum({
     list: PublishStatus,
@@ -181,7 +181,7 @@ function getPublishStatus ({ key, value }) {
   */
 function getDurationUnit ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { DurationUnit } = require('.././grpc/proto/workflow_pb.js');
+  const { DurationUnit } = require('../grpc/proto/workflow_pb.js');
 
   return getValueOrKeyEnum({
     list: DurationUnit,

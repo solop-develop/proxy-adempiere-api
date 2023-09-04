@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Dictionary Client                                         *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger } = require('../utils/valueUtils.js');
 
 class Dictionary {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/dictionary_pb.js');
+  stubFile = require('../grpc/proto/dictionary_pb.js');
 
   /**
   * Constructor, No authentication required
@@ -45,7 +45,7 @@ class Dictionary {
   // Init connection
   initDictionaryService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/dictionary_grpc_pb');
+    const services = require('../grpc/proto/dictionary_grpc_pb');
     this.dictionary = new services.DictionaryClient(
       this.dictionaryHost,
       grpc.credentials.createInsecure()

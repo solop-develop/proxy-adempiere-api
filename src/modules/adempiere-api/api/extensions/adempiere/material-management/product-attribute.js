@@ -23,7 +23,7 @@ import {
 
 module.exports = ({ config }) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api/services/materialManagement');
+  const ServiceApi = require('../grpc-api/services/materialManagement');
   const service = new ServiceApi(config);
 
   /**

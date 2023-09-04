@@ -170,7 +170,7 @@ function convertValidationRule (validationRule) {
 
 module.exports = ({ config }) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api/services/dictionary');
+  const ServiceApi = require('../grpc-api/services/dictionary');
   const service = new ServiceApi(config);
 
   /**

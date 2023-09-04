@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC User Interface Client                                     *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                    *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class UserInterface {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/business_pb.js');
+  stubFile = require('../grpc/proto/business_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class UserInterface {
   // Init connection
   initUserInterfaceService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/business_grpc_pb');
+    const services = require('../grpc/proto/business_grpc_pb');
     this.userInterface = new services.UserInterfaceClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -76,8 +76,7 @@ class UserInterface {
     request.setColumnUuid(columnUuid);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -100,7 +99,7 @@ class UserInterface {
 
     // set value as default value
     if (!isEmptyValue(value)) {
-      const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       const convertedValue = getValueToGRPC({
         value
       });
@@ -177,14 +176,13 @@ class UserInterface {
     const { ListTabEntitiesRequest } = this.stubFile;
     const request = new ListTabEntitiesRequest();
 
-    const { getTypeOfValue } = require('.././utils/valueUtils.js');
     // TODO: Add support to all parameters
     if (!isEmptyValue(filters)) {
       if (getTypeOfValue(filters) === 'String') {
         filters = JSON.parse(filters);
       }
     }
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     const convertedCriteria = getCriteriaToGRPC({
       referenceUuid,
       filters,
@@ -201,7 +199,7 @@ class UserInterface {
     }
     request.setSearchValue(searchValue);
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -256,12 +254,11 @@ class UserInterface {
     request.setTabUuid(tabUuid);
 
     if (!isEmptyValue(attributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
       if (getTypeOfValue(attributes) === 'String') {
         attributes = JSON.parse(attributes);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       attributes.forEach(attribute => {
         let parsedAttribute = attribute
         if (getTypeOfValue(attribute) === 'String') {
@@ -305,12 +302,11 @@ class UserInterface {
     request.setUuid(uuid);
 
     if (!isEmptyValue(attributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
       if (getTypeOfValue(attributes) === 'String') {
         attributes = JSON.parse(attributes);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       attributes.forEach(attribute => {
         let parsedAttribute = attribute
         if (getTypeOfValue(attribute) === 'String') {
@@ -383,13 +379,11 @@ class UserInterface {
     request.setTabUuid(tabUuid);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       contextAttributes.forEach(attribute => {
         let parsedAttribute = attribute;
         if (getTypeOfValue(attribute) === 'String') {
@@ -432,12 +426,11 @@ class UserInterface {
     request.setTabUuid(tabUuid);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       contextAttributes.forEach(attribute => {
         let parsedAttribute = attribute
         if (getTypeOfValue(attribute) === 'String') {
@@ -456,7 +449,7 @@ class UserInterface {
 
     // entities records selections list
     if (!isEmptyValue(entitiesList)) {
-      const { getKeyValueSelectionToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueSelectionToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       entitiesList.forEach(entity => {
         // selection format = { selectionId: number, selectionValues: [{ columName, value }] }
@@ -505,7 +498,7 @@ class UserInterface {
     request.setCallout(callout);
     request.setColumnName(columnName);
 
-    const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setOldValue(
       getValueToGRPC({
         value: oldValue,
@@ -520,12 +513,11 @@ class UserInterface {
     );
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       contextAttributes.forEach(attribute => {
         let parsedAttribute = attribute
         if (getTypeOfValue(attribute) === 'String') {
@@ -580,8 +572,7 @@ class UserInterface {
       getValidInteger(tabId)
     );
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -647,7 +638,7 @@ class UserInterface {
   }, callback) {
     const { GetReportOutputRequest } = this.stubFile;
     const request = new GetReportOutputRequest();
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
     request.setProcessId(
       getValidInteger(processId)

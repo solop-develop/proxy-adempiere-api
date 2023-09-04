@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Dashboarding Client Convert Utils                         *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -107,7 +107,7 @@ function getPendingDocumentFromGRPC (pendingDocumentToConvert) {
   }
   const {
     convertCriteriaFromGRPC
-  } = require('.././lib/convertBaseDataType.js');
+  } = require('../lib/convertBaseDataType.js');
 
   return {
     window_uuid: pendingDocumentToConvert.getWindowUuid(),
@@ -148,7 +148,7 @@ function getFavoriteFromGRPC (favorite) {
  */
 function getAction ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js');
-  const { Action } = require('.././grpc/proto/dashboarding_pb.js');
+  const { Action } = require('../grpc/proto/dashboarding_pb.js');
 
   return getValueOrKeyEnum({
     list: Action,

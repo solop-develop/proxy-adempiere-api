@@ -23,7 +23,7 @@ const convertBaseDataType = {
    */
   convertCriteriaFromGRPC (criteriaToConvert) {
     if (criteriaToConvert) {
-      const { getValueFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getValueFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
 
       return {
         table_name: criteriaToConvert.getTableName(),
@@ -104,8 +104,8 @@ const convertBaseDataType = {
 
   //  get Context
   convertAttributes (context) {
-    const { getValueFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
-    const { isEmptyValue } = require('.././utils/valueUtils.js');
+    const { getValueFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
+    const { isEmptyValue } = require('../utils/valueUtils.js');
 
     const values = []
     context.forEach((value, key) => {
@@ -123,7 +123,7 @@ const convertBaseDataType = {
 
   convertTranslationFromGRPC (translation) {
     if (translation) {
-      const { getValuesMapFromGRPC } = require('.././utils/valueUtilsFromGRPC.js');
+      const { getValuesMapFromGRPC } = require('../utils/valueUtilsFromGRPC.js');
 
       return {
         language: translation.getLanguage(),

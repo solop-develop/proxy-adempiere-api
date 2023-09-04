@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Business Data Client                                      *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidId, getValidInteger, getTypeOfValue } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class BusinessData {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/business_pb.js');
+  stubFile = require('../grpc/proto/business_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class BusinessData {
   // Init connection
   initBusinessDataService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/business_grpc_pb');
+    const services = require('../grpc/proto/business_grpc_pb');
     this.businessData = new services.BusinessDataClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -110,7 +110,7 @@ class BusinessData {
         parametersList = JSON.parse(parametersList);
       }
 
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       parametersList.forEach(parameter => {
         let parsedParameter = parameter;
         if (getTypeOfValue(parameter) === 'String') {
@@ -128,11 +128,11 @@ class BusinessData {
     }
 
     request.setTableSelectedId(
-      getValidId(tableSelectedId)
+      getValidInteger(tableSelectedId)
     );
     // browser records selections list
     if (!isEmptyValue(selectionsList)) {
-      const { getKeyValueSelectionToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueSelectionToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       selectionsList.forEach(selection => {
         // selection format = { selectionId: number, selectionValues: [{ columName, value, valueType }] }
