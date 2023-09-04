@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Material Management Client                                *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidId } = require('.././utils/valueUtils.js')
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js')
 
 class MaterialManagement {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/material_management_pb.js');
+  stubFile = require('../grpc/proto/material_management_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class MaterialManagement {
   // Init connection
   initMaterialManagementService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/material_management_grpc_pb');
+    const services = require('../grpc/proto/material_management_grpc_pb');
     this.materialManagement = new services.MaterialManagementClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -72,7 +72,7 @@ class MaterialManagement {
 
     request.setTableName(tableName);
     request.setRecordId(
-      getValidId(recordId)
+      getValidInteger(recordId)
     );
     request.setRecordUuid(recordUuid);
 
@@ -113,11 +113,11 @@ class MaterialManagement {
     const request = new GetProductAttributeSetRequest();
 
     request.setId(
-      getValidId(id)
+      getValidInteger(id)
     );
     request.setUuid(uuid);
     request.setProductId(
-      getValidId(productId)
+      getValidInteger(productId)
     );
     request.setProductUuid(productUuid);
     request.setProductAttributeSetInstanceId(productAttributeSetInstanceId);
@@ -155,11 +155,11 @@ class MaterialManagement {
     const request = new GetProductAttributeSetInstanceRequest();
 
     request.setId(
-      getValidId(id)
+      getValidInteger(id)
     );
     request.setUuid(uuid);
     request.setProductId(
-      getValidId(productId)
+      getValidInteger(productId)
     );
     request.setProductUuid(productUuid);
 
@@ -199,7 +199,7 @@ class MaterialManagement {
     const request = new ListProductAttributeSetInstancesRequest();
 
     request.setProductId(
-      getValidId(productId)
+      getValidInteger(productId)
     );
     request.setProductUuid(productUuid);
     request.setProductAttributeSetId(productAttributeSetId);
@@ -207,7 +207,7 @@ class MaterialManagement {
 
     request.setSearchValue(searchValue);
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       request.setFilters(
         getCriteriaToGRPC({
           filters
@@ -255,18 +255,18 @@ class MaterialManagement {
     const request = new SaveProductAttributeSetInstanceRequest();
 
     request.setId(
-      getValidId(id)
+      getValidInteger(id)
     );
     request.setUuid(uuid);
     request.setProductId(
-      getValidId(productId)
+      getValidInteger(productId)
     );
     request.setProductUuid(productUuid);
     request.setProductAttributeSetId(productAttributeSetId);
     request.setProductAttributeSetUuid(productAttributeSetUuid);
 
     if (!isEmptyValue(attributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       attributes.forEach(attribute => {
         // parameter format = { columName, value }
@@ -313,7 +313,7 @@ class MaterialManagement {
     const request = new ListAvailableWarehousesRequest();
 
     request.setWarehouseId(
-      getValidId(warehouseId)
+      getValidInteger(warehouseId)
     );
     request.setWarehouseUuid(warehouseUuid);
 
@@ -365,15 +365,14 @@ class MaterialManagement {
     const request = new ListLocatorsRequest();
 
     request.setWarehouseId(
-      getValidId(warehouseId)
+      getValidInteger(warehouseId)
     );
     request.setWarehouseUuid(warehouseUuid);
 
     request.setSearchValue(searchValue);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);

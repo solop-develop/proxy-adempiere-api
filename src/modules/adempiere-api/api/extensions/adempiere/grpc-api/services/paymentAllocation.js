@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Payment Allocation Client                                 *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger } = require('../utils/valueUtils.js');
 
 class PaymentAllocation {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/payment_allocation_pb.js');
+  stubFile = require('../grpc/proto/payment_allocation_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class PaymentAllocation {
   // Init connection
   initPaymentAllocationService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/payment_allocation_grpc_pb.js');
+    const services = require('../grpc/proto/payment_allocation_grpc_pb.js');
     this.paymentAllocation = new services.PaymentAllocationClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -228,7 +228,7 @@ class PaymentAllocation {
       getValidInteger(businessPartnerId)
     );
 
-    const { getTimestamp } = require('.././utils/valueUtils.js');
+    const { getTimestamp } = require('../utils/valueUtils.js');
     request.setDate(
       getTimestamp(date)
     );
@@ -292,7 +292,7 @@ class PaymentAllocation {
       getValidInteger(businessPartnerId)
     );
 
-    const { getTimestamp } = require('.././utils/valueUtils.js');
+    const { getTimestamp } = require('../utils/valueUtils.js');
     request.setDate(
       getTimestamp(date)
     );
@@ -447,7 +447,7 @@ class PaymentAllocation {
       getValidInteger(transactionOrganizationId)
     );
 
-    const { getTimestamp } = require('.././utils/valueUtils.js');
+    const { getTimestamp } = require('../utils/valueUtils.js');
     if (!isEmptyValue(date)) {
       request.setDate(
         getTimestamp(date)
@@ -456,7 +456,7 @@ class PaymentAllocation {
 
     request.setDescription(description);
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     // payment selections list
     paymentSelectionsList.forEach(paymentSelection => {
       const paymentSelectionInstance = new PaymentSelection();

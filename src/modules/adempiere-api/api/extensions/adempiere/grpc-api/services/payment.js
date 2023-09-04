@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Payment Client                                            *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue } = require('.././utils/valueUtils.js')
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue } = require('../utils/valueUtils.js')
 
 class Payment {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/payment_pb.js');
+  stubFile = require('../grpc/proto/payment_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class Payment {
   // Init connection
   initPaymentService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/payment_grpc_pb.js');
+    const services = require('../grpc/proto/payment_grpc_pb.js');
     this.payment = new services.PaymentClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -85,7 +85,7 @@ class Payment {
     request.setReferenceUuid(referenceUuid);
 
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       request.setFilters(
         getCriteriaToGRPC({
           filters
@@ -95,8 +95,8 @@ class Payment {
 
     request.setSearchValue(searchValue);
     if (!isEmptyValue(contextAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getTypeOfValue } = require('../utils/valueUtils.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);

@@ -18,9 +18,9 @@ import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
   getMatchesTypeFromGRPC
-} from '../.././grpc-api/utils/matchPoReceiptInvocice';
-import { getDecimalFromGRPC } from '../.././grpc-api/utils/baseDataTypeFromGRPC.js';
-import { getLookupItemFromGRPC } from '../.././grpc-api/utils/userInterfaceFromGRPC';
+} from '../../grpc-api/utils/matchPoReceiptInvocice';
+import { getDecimalFromGRPC } from '../../grpc-api/utils/baseDataTypeFromGRPC.js';
+import { getLookupItemFromGRPC } from '../../grpc-api/utils/userInterfaceFromGRPC';
 
 function getProductFromGRPC (productToConvert) {
   if (!productToConvert) {
@@ -64,7 +64,7 @@ function getListMatcheFromGRPC (matchedFrom) {
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('../.././grpc-api/services/matchPoReceiptInvoice');
+  const ServiceApi = require('../../grpc-api/services/matchPoReceiptInvoice');
   const service = new ServiceApi(config)
 
   api.get('/', (req, res) => {
@@ -290,7 +290,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         vendorId: req.query.vendor_id,
         productId: req.query.product_id,
         dateFrom: req.query.date_from,
-        dateto: req.query.date_to
+        dateTo: req.query.date_to
       }, (err, response) => {
         if (response) {
           res.json({
@@ -335,7 +335,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         vendorId: req.query.vendor_id,
         productId: req.query.product_id,
         dateFrom: req.query.date_from,
-        dateto: req.query.date_to,
+        dateTo: req.query.date_to,
         isSameQuantity: req.query.is_same_quantity
       }, (err, response) => {
         if (response) {

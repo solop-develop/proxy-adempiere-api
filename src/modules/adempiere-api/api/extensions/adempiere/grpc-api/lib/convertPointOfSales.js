@@ -19,7 +19,7 @@ const convertUtils = {
   // Customer
   convertCustomerFromGRPC (customer) {
     if (customer) {
-      const { getValuesMapFromGRPC } = require('.././utils/valueUtilsFromGRPC.js');
+      const { getValuesMapFromGRPC } = require('../utils/valueUtilsFromGRPC.js');
       return {
         uuid: customer.getUuid(),
         id: customer.getId(),
@@ -91,7 +91,7 @@ const convertUtils = {
           name: address.getCity().getName()
         }
       }
-      const { getValuesMapFromGRPC } = require('.././utils/valueUtilsFromGRPC.js');
+      const { getValuesMapFromGRPC } = require('../utils/valueUtilsFromGRPC.js');
       return {
         id: address.getId(),
         uuid: address.getUuid(),
@@ -152,8 +152,8 @@ const convertUtils = {
 
   // Convert cash summary movements from gRPC to JSON
   convertCashSummaryMovements (movement) {
-    const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
-    const { getCurrencyFromGRPC } = require('.././utils/coreFunctionalityFromGRPC');
+    const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
+    const { getCurrencyFromGRPC } = require('../utils/coreFunctionalityFromGRPC');
 
     if (movement) {
       return {
@@ -179,10 +179,10 @@ const convertUtils = {
     }
     const { convertChargeFromGRPC, convertSalesRepresentativeFromGRPC, convertPaymentMethodFromGRPC, convertDocumentTypeFromGRPC } = require('./convertCoreFunctionality.js');
     const { convertDocumentStatusFromGRPC } = require('./convertBaseDataType.js');
-    const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+    const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
     const {
       getCurrencyFromGRPC
-    } = require('.././utils/coreFunctionalityFromGRPC');
+    } = require('../utils/coreFunctionalityFromGRPC');
 
     return {
       id: movement.getId(),
@@ -308,7 +308,7 @@ const convertUtils = {
 
   convertAvailableRefundGRPC (availableRefund) {
     if (availableRefund) {
-      const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
 
       return {
         refund: getDecimalFromGRPC(
@@ -333,7 +333,7 @@ const convertUtils = {
       const {
         getDecimalFromGRPC,
         getResourceReferenceFromGRPC
-      } = require('.././utils/baseDataTypeFromGRPC.js');
+      } = require('../utils/baseDataTypeFromGRPC.js');
 
       return {
         uuid: key.getUuid(),

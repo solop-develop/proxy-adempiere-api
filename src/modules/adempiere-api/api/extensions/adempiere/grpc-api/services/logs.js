@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Logs: ADempiere gRPC Logs Client                                                  *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidInteger, getTimestamp } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger, getTimestamp } = require('../utils/valueUtils.js');
 
 class Logs {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/logs_pb.js');
+  stubFile = require('../grpc/proto/logs_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class Logs {
   // Init connection
   initLogsService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/logs_grpc_pb');
+    const services = require('../grpc/proto/logs_grpc_pb');
     this.logs = new services.LogsClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -68,7 +68,9 @@ class Logs {
     const request = new ListLogsRequest();
 
     request.setTableName(tableName);
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -103,7 +105,9 @@ class Logs {
     );
     request.setUserUuid(userUuid);
     request.setInstanceUuid(instanceUuid);
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -134,7 +138,9 @@ class Logs {
     request.setId(
       getValidInteger(id)
     );
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -165,7 +171,9 @@ class Logs {
     request.setId(
       getValidInteger(id)
     );
-    request.setPageSize(pageSize)
+    request.setPageSize(
+      getValidInteger(pageSize)
+    )
     request.setPageToken(pageToken)
 
     const metadata = getMetadata({
@@ -229,7 +237,9 @@ class Logs {
     request.setId(
       getValidInteger(id)
     );
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -260,7 +270,9 @@ class Logs {
     request.setId(
       getValidInteger(id)
     );
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -289,7 +301,9 @@ class Logs {
     request.setUserUuid(userUuid);
     request.setRoleUuid(roleUuid);
     request.setCurrentSession(currentSession);
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({

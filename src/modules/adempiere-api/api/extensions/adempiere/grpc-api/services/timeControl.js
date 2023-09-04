@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Time Control Client                                       *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,8 +14,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger } = require('../utils/valueUtils.js');
 
 class TimeControl {
   /**
@@ -40,7 +40,7 @@ class TimeControl {
   // Init connection
   initTimeControlService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/time_control_grpc_pb');
+    const services = require('../grpc/proto/time_control_grpc_pb');
     this.timeControl = new services.TimeControlClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -62,7 +62,7 @@ class TimeControl {
   }, callback) {
     const {
       CreateResourceAssignmentRequest
-    } = require('.././grpc/proto/time_control_pb.js');
+    } = require('../grpc/proto/time_control_pb.js');
     const request = new CreateResourceAssignmentRequest();
 
     request.setResourceTypeId(
@@ -100,7 +100,7 @@ class TimeControl {
   }, callback) {
     const {
       ListResourcesAssignmentRequest
-    } = require('.././grpc/proto/time_control_pb.js');
+    } = require('../grpc/proto/time_control_pb.js');
     const request = new ListResourcesAssignmentRequest();
 
     request.setResourceTypeId(
@@ -140,7 +140,7 @@ class TimeControl {
   }, callback) {
     const {
       UpdateResourceAssignmentRequest
-    } = require('.././grpc/proto/time_control_pb.js');
+    } = require('../grpc/proto/time_control_pb.js');
     const request = new UpdateResourceAssignmentRequest();
 
     request.setId(
@@ -169,7 +169,7 @@ class TimeControl {
   }, callback) {
     const {
       DeleteResourceAssignmentRequest
-    } = require('.././grpc/proto/time_control_pb.js');
+    } = require('../grpc/proto/time_control_pb.js');
     const request = new DeleteResourceAssignmentRequest();
 
     request.setId(
@@ -196,7 +196,7 @@ class TimeControl {
   }, callback) {
     const {
       ConfirmResourceAssignmentRequest
-    } = require('.././grpc/proto/time_control_pb.js');
+    } = require('../grpc/proto/time_control_pb.js');
     const request = new ConfirmResourceAssignmentRequest();
 
     request.setId(

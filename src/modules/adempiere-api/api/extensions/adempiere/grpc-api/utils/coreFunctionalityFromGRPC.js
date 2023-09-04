@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/core_functionality_pb.js');
+const stubFile = require('../grpc/proto/core_functionality_pb.js');
 
 function getCurrencyFromGRPC (currency) {
   if (!currency) {

@@ -1,6 +1,6 @@
 /************************************************************************************************
  * Product: ADempiere gRPC Issue Management Client                                              *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                                 *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                              *
  * Contributor(s): Elsio Sanchez elsiosanchez15@outlook.com https://github.com/elsiosanchez     *
  * This program is free software: you can redistribute it and/or modify                         *
  * it under the terms of the GNU General Public License as published by                         *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.                        *
  ***********************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidId, getTimestamp, convertStringToBoolean, getTypeOfValue } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger, getTimestamp, convertStringToBoolean, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class MatchPORReceiptInvoice {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/match_po_receipt_invoice_pb.js');
+  stubFile = require('../grpc/proto/match_po_receipt_invoice_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -38,14 +38,14 @@ class MatchPORReceiptInvoice {
       this.token = adempiereConfig.token;
     }
 
-    this.initMatchPORReceiptInvoiceService();
-    console.log('ADempiere MatchPORReceiptInvoice Client Started');
+    this.initMatchPOReceiptInvoiceService();
+    console.log('ADempiere Match-PO-ReceiptInvoice Client Started');
   }
 
   // Init connection
-  initMatchPORReceiptInvoiceService () {
+  initMatchPOReceiptInvoiceService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/match_po_receipt_invoice_grpc_pb');
+    const services = require('../grpc/proto/match_po_receipt_invoice_grpc_pb');
     this.match_po_receipt_invoice = new services.MatchPORReceiptInvoiceClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -103,8 +103,11 @@ class MatchPORReceiptInvoice {
   }, callback) {
     const { ListMatchesTypesToRequest } = this.stubFile;
     const request = new ListMatchesTypesToRequest();
+
     request.setSearchValue(searchValue);
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setMatchFromType(matchFromType);
 
@@ -134,7 +137,10 @@ class MatchPORReceiptInvoice {
   }, callback) {
     const { ListSearchModesRequest } = this.stubFile;
     const request = new ListSearchModesRequest();
-    request.setPageSize(pageSize);
+
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setSearchValue(searchValue);
     const metadata = getMetadata({
@@ -163,7 +169,10 @@ class MatchPORReceiptInvoice {
   }, callback) {
     const { ListVendorsRequest } = this.stubFile;
     const request = new ListVendorsRequest();
-    request.setPageSize(pageSize);
+
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setSearchValue(searchValue);
     const metadata = getMetadata({
@@ -192,7 +201,10 @@ class MatchPORReceiptInvoice {
   }, callback) {
     const { ListProductsRequest } = this.stubFile;
     const request = new ListProductsRequest();
-    request.setPageSize(pageSize);
+
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setSearchValue(searchValue);
     const metadata = getMetadata({
@@ -224,11 +236,14 @@ class MatchPORReceiptInvoice {
     vendorId,
     productId,
     dateFrom,
-    dateto
+    dateTo
   }, callback) {
     const { ListMatchedFromRequest } = this.stubFile;
     const request = new ListMatchedFromRequest();
-    request.setPageSize(pageSize);
+
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setMatchMode(matchMode);
     request.setSearchValue(searchValue);
@@ -236,8 +251,13 @@ class MatchPORReceiptInvoice {
     request.setMatchToType(matchToType);
     request.setVendorId(vendorId);
     request.setProductId(productId);
-    request.setDateFrom(dateFrom);
-    request.setDateTo(dateto);
+    request.setDateFrom(
+      getTimestamp(dateFrom)
+    );
+    request.setDateTo(
+      getTimestamp(dateTo)
+    );
+
     const metadata = getMetadata({
       token
     });
@@ -267,28 +287,39 @@ class MatchPORReceiptInvoice {
     vendorId,
     productId,
     dateFrom,
-    dateto,
+    dateTo,
     isSameQuantity,
     matchFromSelectedId
   }, callback) {
     const { ListMatchedToRequest } = this.stubFile;
     const request = new ListMatchedToRequest();
-    request.setPageSize(pageSize);
+
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
     request.setMatchMode(matchMode);
     request.setSearchValue(searchValue);
     request.setMatchFromType(matchFromType);
     request.setMatchToType(matchToType);
-    const vendorIdConverted = parseInt(vendorId);
-    request.setVendorId(vendorIdConverted);
-    const productIdConverted = parseInt(productId);
-    request.setProductId(productIdConverted);
-    request.setDateFrom(dateFrom);
-    request.setDateTo(dateto);
-    const matchFromSelectedIdConverted = parseInt(matchFromSelectedId)
-    request.setMatchFromSelectedId(matchFromSelectedIdConverted);
-    const isSameQuantityConverted = convertStringToBoolean(isSameQuantity)
-    request.setIsSameQuantity(isSameQuantityConverted);
+    request.setVendorId(
+      getValidInteger(vendorId)
+    );
+    request.setProductId(
+      getValidInteger(productId)
+    );
+    request.setDateFrom(
+      getTimestamp(dateFrom)
+    );
+    request.setDateTo(
+      getTimestamp(dateTo)
+    );
+    request.setMatchFromSelectedId(
+      getValidInteger(matchFromSelectedId)
+    );
+    request.setIsSameQuantity(
+      convertStringToBoolean(isSameQuantity)
+    );
     const metadata = getMetadata({
       token
     });
@@ -319,7 +350,7 @@ class MatchPORReceiptInvoice {
     request.setMatchToType(matchToType);
     request.setMatchFromSelectedId(matchFromSelectedId);
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );
@@ -335,13 +366,13 @@ class MatchPORReceiptInvoice {
       }
       const matchedInstance = new Matched();
 
-      matchedInstance.setId(matchSelection.id);
-      matchedInstance.setUuid(matchSelection.uuid);
+      matchedInstance.setId(parsedMatchSelection.id);
+      matchedInstance.setUuid(parsedMatchSelection.uuid);
       matchedInstance.setQuantity(
-        getDecimalToGRPC(matchSelection.quantity)
+        getDecimalToGRPC(parsedMatchSelection.quantity)
       );
       matchedInstance.getMatchedQuantity(
-        getDecimalToGRPC(matchSelection.matchedQuantity)
+        getDecimalToGRPC(parsedMatchSelection.matchedQuantity)
       );
       request.addMatchedToSelections(matchedInstance);
     });

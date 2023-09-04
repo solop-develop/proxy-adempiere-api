@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Core Functionality Client                                 *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getValidId } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getValidInteger } = require('../utils/valueUtils.js');
 
 class CoreFunctionality {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/core_functionality_pb.js');
+  stubFile = require('../grpc/proto/core_functionality_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class CoreFunctionality {
   // Init connection
   initCoreFunctionalityService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/core_functionality_grpc_pb');
+    const services = require('../grpc/proto/core_functionality_grpc_pb');
     this.coreFunctionality = new services.CoreFunctionalityClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -68,7 +68,7 @@ class CoreFunctionality {
 
     request.setUuid(uuid);
     request.setId(
-      getValidId(id)
+      getValidInteger(id)
     );
 
     const metadata = getMetadata({
@@ -91,7 +91,9 @@ class CoreFunctionality {
     const { ListLanguagesRequest } = this.stubFile;
     const request = new ListLanguagesRequest();
 
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -118,9 +120,11 @@ class CoreFunctionality {
 
     request.setRoleUuid(roleUuid);
     request.setRoleId(
-      getValidId(roleId)
+      getValidInteger(roleId)
     );
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -147,9 +151,11 @@ class CoreFunctionality {
 
     request.setOrganizationUuid(organizationUuid);
     request.setOrganizationId(
-      getValidId(organizationId)
+      getValidInteger(organizationId)
     );
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -205,10 +211,12 @@ class CoreFunctionality {
     const request = new ListProductConversionRequest();
 
     request.setProductId(
-      getValidId(productId)
+      getValidInteger(productId)
     );
     request.setProductUuid(productUuid);
-    request.setPageSize(pageSize);
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
     request.setPageToken(pageToken);
 
     const metadata = getMetadata({
@@ -243,7 +251,7 @@ class CoreFunctionality {
   }, callback) {
     const { GetBusinessPartnerRequest } = this.stubFile
     const request = new GetBusinessPartnerRequest()
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
     // TODO: Add support to all parameters
     request.setCriteria(
@@ -361,7 +369,7 @@ class CoreFunctionality {
   }, callback) {
     const { ListBusinessPartnersRequest } = this.stubFile;
     const request = new ListBusinessPartnersRequest();
-    const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     //  TODO: Add support to all parameters
     request.setCriteria(
       getCriteriaToGRPC({

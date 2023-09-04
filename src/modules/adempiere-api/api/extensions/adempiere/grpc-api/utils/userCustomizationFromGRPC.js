@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/user_customization_pb.js');
+const stubFile = require('../grpc/proto/user_customization_pb.js');
 
 /**
  * Get all moderation type or get key value type from value

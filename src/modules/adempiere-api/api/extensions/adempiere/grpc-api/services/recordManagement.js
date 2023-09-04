@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js')
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger } = require('../utils/valueUtils.js')
 
 class RecordManagement {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/record_management_pb.js');
+  stubFile = require('../grpc/proto/record_management_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class RecordManagement {
   // Init connection
   initRecordManagementService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/record_management_grpc_pb.js');
+    const services = require('../grpc/proto/record_management_grpc_pb.js');
     this.recordManagement = new services.RecordManagementClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -76,7 +76,7 @@ class RecordManagement {
     );
     request.setRecordUuid(recordIUuid);
 
-    const { getTypeOfValue } = require('.././utils/valueUtils.js');
+    const { getTypeOfValue } = require('../utils/valueUtils.js');
     // selection list ids
     if (!isEmptyValue(recordsIdsList)) {
       if (getTypeOfValue(recordsIdsList) === 'String') {

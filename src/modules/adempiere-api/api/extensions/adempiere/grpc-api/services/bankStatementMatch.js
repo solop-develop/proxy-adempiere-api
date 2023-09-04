@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { getTimestamp, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { getTimestamp, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class BankStatementMatch {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/bank_statement_match_pb.js');
+  stubFile = require('../grpc/proto/bank_statement_match_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class BankStatementMatch {
   // Init connection
   initBankStatementMatchService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/bank_statement_match_grpc_pb.js');
+    const services = require('../grpc/proto/bank_statement_match_grpc_pb.js');
     this.bankStatementMatch = new services.BankStatementMatchClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -267,7 +267,7 @@ class BankStatementMatch {
       getValidInteger(bankAccountId)
     );
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setPaymentAmountFrom(
       getDecimalToGRPC(paymentAmountFrom)
     );
@@ -354,7 +354,7 @@ class BankStatementMatch {
       getValidInteger(businessPartnerId)
     );
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setPaymentAmountFrom(
       getDecimalToGRPC(paymentAmountFrom)
     );
@@ -427,7 +427,7 @@ class BankStatementMatch {
       getValidInteger(businessPartnerId)
     );
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setPaymentAmountFrom(
       getDecimalToGRPC(paymentAmountFrom)
     );
@@ -500,7 +500,7 @@ class BankStatementMatch {
       getValidInteger(bankAccountId)
     );
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setPaymentAmountFrom(
       getDecimalToGRPC(paymentAmountFrom)
     );
@@ -533,7 +533,6 @@ class BankStatementMatch {
     const { MatchPaymentsRequest, KeyMatch } = this.stubFile;
     const request = new MatchPaymentsRequest();
 
-    const { getTypeOfValue } = require('.././utils/valueUtils.js');
     if (getTypeOfValue(keyMatchesList) === 'String') {
       keyMatchesList = JSON.parse(keyMatchesList);
     }
@@ -567,7 +566,6 @@ class BankStatementMatch {
     const { UnmatchPaymentsRequest } = this.stubFile;
     const request = new UnmatchPaymentsRequest();
 
-    const { getTypeOfValue } = require('.././utils/valueUtils.js');
     if (getTypeOfValue(importedMovementsIdsList) === 'String') {
       importedMovementsIdsList = JSON.parse(importedMovementsIdsList);
     }
@@ -619,7 +617,7 @@ class BankStatementMatch {
       getValidInteger(bankStatementId)
     );
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setPaymentAmountFrom(
       getDecimalToGRPC(paymentAmountFrom)
     );

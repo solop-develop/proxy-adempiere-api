@@ -20,7 +20,7 @@ import { getFiledFromGRPC } from '../util/dictionaryFromGRPC'
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api/services/dictionary');
+  const ServiceApi = require('../grpc-api/services/dictionary');
   const service = new ServiceApi(config);
 
   /**
