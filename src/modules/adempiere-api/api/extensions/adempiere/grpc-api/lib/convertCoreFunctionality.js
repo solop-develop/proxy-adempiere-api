@@ -22,7 +22,7 @@ const convertCoreFunctionality = {
 
     const {
       getCurrencyFromGRPC
-    } = require('.././utils/coreFunctionalityFromGRPC');
+    } = require('../utils/coreFunctionalityFromGRPC');
     return {
       id: countryToConvert.getId(),
       uuid: countryToConvert.getUuid(),
@@ -168,7 +168,7 @@ const convertCoreFunctionality = {
 
   convertProductFromGRPC (productToConvert) {
     if (productToConvert) {
-      const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
 
       return {
         uuid: productToConvert.getUuid(),
@@ -218,7 +218,7 @@ const convertCoreFunctionality = {
   convertTaxRateFromGRPC (taxRate) {
     //  Tax rate
     if (taxRate) {
-      const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
 
       return {
         name: taxRate.getName(),
@@ -234,10 +234,10 @@ const convertCoreFunctionality = {
 
   convertProductPriceFromGRPC (productPrice) {
     if (productPrice) {
-      const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
       const {
         getCurrencyFromGRPC
-      } = require('.././utils/coreFunctionalityFromGRPC');
+      } = require('../utils/coreFunctionalityFromGRPC');
 
       return {
         currency: getCurrencyFromGRPC(
@@ -314,7 +314,7 @@ const convertCoreFunctionality = {
 
     const {
       getCurrencyFromGRPC
-    } = require('.././utils/coreFunctionalityFromGRPC');
+    } = require('../utils/coreFunctionalityFromGRPC');
     return {
       uuid: priceListToConvert.getUuid(),
       id: priceListToConvert.getId(),
@@ -335,11 +335,11 @@ const convertCoreFunctionality = {
     if (!bankAccount) {
       return undefined;
     }
-    const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+    const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
     const { getBankAccount_BankAccountType } = require('./convertEnums.js');
     const {
       getCurrencyFromGRPC
-    } = require('.././utils/coreFunctionalityFromGRPC');
+    } = require('../utils/coreFunctionalityFromGRPC');
 
     return {
       uuid: bankAccount.getUuid(),
@@ -371,10 +371,10 @@ const convertCoreFunctionality = {
 
   convertConversionRateFromGRPC (conversionRate) {
     if (conversionRate) {
-      const { getDecimalFromGRPC } = require('.././utils/baseDataTypeFromGRPC.js');
+      const { getDecimalFromGRPC } = require('../utils/baseDataTypeFromGRPC.js');
       const {
         getCurrencyFromGRPC
-      } = require('.././utils/coreFunctionalityFromGRPC');
+      } = require('../utils/coreFunctionalityFromGRPC');
 
       return {
         uuid: conversionRate.getUuid(),

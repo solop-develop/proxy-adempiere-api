@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/base_data_type_pb.js');
+const stubFile = require('../grpc/proto/base_data_type_pb.js');
 
 /**
  * Get integer from a grpc value
@@ -180,7 +180,7 @@ function getValueFromGRPC (valueToConvert) {
  */
 function getOperator ({ key, value }) {
   const { getValueOrKey } = require('./convertEnums.js')
-  const { Operator } = require('.././grpc/proto/base_data_type_pb.js');
+  const { Operator } = require('../grpc/proto/base_data_type_pb.js');
 
   return getValueOrKey({
     list: Operator,
@@ -317,7 +317,7 @@ function getRecordReferenceInfoFromGRPC (referenceInfo) {
 
 function getResourceType ({ key, value }) {
   const { getValueOrKeyEnum } = require('./convertEnums.js')
-  const { ResourceType } = require('.././grpc/proto/file_management_pb');
+  const { ResourceType } = require('../grpc/proto/file_management_pb');
 
   return getValueOrKeyEnum({
     list: ResourceType,

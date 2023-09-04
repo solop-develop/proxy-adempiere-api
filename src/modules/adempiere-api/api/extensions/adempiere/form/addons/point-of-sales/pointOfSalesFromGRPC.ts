@@ -15,10 +15,10 @@
 
 import {
   getDecimalFromGRPC
-} from '../../.././grpc-api/utils/baseDataTypeFromGRPC.js';
+} from '../../../grpc-api/utils/baseDataTypeFromGRPC.js';
 import {
   convertDocumentStatusFromGRPC
-} from '../../.././grpc-api/lib/convertBaseDataType.js';
+} from '../../../grpc-api/lib/convertBaseDataType.js';
 import {
   convertChargeFromGRPC,
   convertProductFromGRPC,
@@ -28,10 +28,10 @@ import {
   convertProductConversionFromGRPC as getProductConversionFromGRPC,
   convertSalesRepresentativeFromGRPC,
   convertWarehouseFromGRPC
-} from '../../.././grpc-api/utils/convertCoreFunctionality';
+} from '../../../grpc-api/utils/convertCoreFunctionality';
 import {
   convertCustomerFromGRPC
-} from '../../.././grpc-api/lib/convertPointOfSales'
+} from '../../../grpc-api/lib/convertPointOfSales'
 // import { getResourceAssignmentFromGRPC } from '../time-record';
 import { convertResourceAssignment as getResourceAssignmentFromGRPC } from '../../../util/convertData';
 

@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidId } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidId } = require('../utils/valueUtils.js');
 
 class TimeRecord {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/time_record_pb.js');
+  stubFile = require('../grpc/proto/time_record_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class TimeRecord {
   // Init connection
   initTimeRecordService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/time_record_grpc_pb');
+    const services = require('../grpc/proto/time_record_grpc_pb');
     this.timeRecord = new services.TimeRecordClient(
       this.businessHost, grpc.credentials.createInsecure()
     );
@@ -162,13 +162,13 @@ class TimeRecord {
     request.setDescription(description);
 
     if (isEmptyValue(date)) {
-      const { getTimestamp } = require('.././utils/valueUtils.js');
+      const { getTimestamp } = require('../utils/valueUtils.js');
       request.setDate(
         getTimestamp(date)
       );
     }
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );
@@ -202,12 +202,12 @@ class TimeRecord {
 
     request.setSearchValue(searhValue);
 
-    const { getDecimalToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getDecimalToGRPC } = require('../utils/baseDataTypeToGRPC.js');
     request.setQuantity(
       getDecimalToGRPC(quantity)
     );
 
-    const { getTimestamp } = require('.././utils/valueUtils.js');
+    const { getTimestamp } = require('../utils/valueUtils.js');
     if (isEmptyValue(dateFrom)) {
       request.setDateFrom(
         getTimestamp(dateFrom)

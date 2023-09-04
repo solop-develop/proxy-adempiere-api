@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Issue Management Client Convert Util                      *
- * Copyright (C) 2018-2020 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,7 +14,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const stubFile = require('.././grpc/proto/issue_management_pb.js');
+const stubFile = require('../grpc/proto/issue_management_pb.js');
 
 function getUserFromGRPC (userToConvert) {
   if (!userToConvert) {

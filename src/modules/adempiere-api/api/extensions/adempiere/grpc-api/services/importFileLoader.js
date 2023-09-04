@@ -1,6 +1,6 @@
 /*************************************************************************************
- * Product: ADempiere gRPC Express Receipt Client                                    *
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Product: ADempiere gRPC Import File Loader Client                                 *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Elsio Sanchez elsiosanchez15@outlook.com                          *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class ImportFileLoader {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/import_file_loader_pb.js');
+  stubFile = require('../grpc/proto/import_file_loader_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,14 +45,14 @@ class ImportFileLoader {
   // Init connection
   initImportFileLoaderService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/import_file_loader_grpc_pb');
+    const services = require('../grpc/proto/import_file_loader_grpc_pb');
     this.importFileLoader = new services.ImportFileLoaderClient(
       this.businessHost,
       grpc.credentials.createInsecure()
     );
   }
 
-  // Get Express Receipt Service
+  // Get Import File Loader Service
   getImportFileLoaderService () {
     return this.importFileLoader;
   }
@@ -250,8 +250,7 @@ class ImportFileLoader {
       );
       // set process parameters list
       if (!isEmptyValue(parametersList)) {
-        const { getTypeOfValue } = require('.././utils/valueUtils.js');
-        const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+        const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
         if (getTypeOfValue(parametersList) === 'String') {
           parametersList = JSON.parse(parametersList);

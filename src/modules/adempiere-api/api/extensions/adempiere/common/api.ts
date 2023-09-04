@@ -1,5 +1,5 @@
 /************************************************************************************
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                     *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                  *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                     *
  * This program is free software: you can redistribute it and/or modify             *
  * it under the terms of the GNU General Public License as published by             *
@@ -18,14 +18,14 @@ import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
   convertEntityFromGRPC
-} from '.././grpc-api/lib/convertBaseDataType';
+} from '../grpc-api/lib/convertBaseDataType';
 import {
   getProcessLogFromGRPC
-} from '.././grpc-api/utils/baseDataTypeFromGRPC.js';
+} from '../grpc-api/utils/baseDataTypeFromGRPC.js';
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('.././grpc-api');
+  const ServiceApi = require('../grpc-api');
   const service = new ServiceApi(config);
 
   /**
@@ -250,7 +250,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
    * Details:
    */
   api.post('/process', (req, res) => {
-    const BusinessDataService = require('.././grpc-api/services/businessData');
+    const BusinessDataService = require('../grpc-api/services/businessData');
     const service = new BusinessDataService(config);
 
     if (req.body) {

@@ -23,11 +23,11 @@ import {
   convertOrganizationFromGRPC,
   convertProductConversionFromGRPC,
   convertWarehouseFromGRPC
-} from '.././grpc-api/utils/convertCoreFunctionality';
+} from '../grpc-api/utils/convertCoreFunctionality';
 
 module.exports = ({ config }) => {
   const api = Router();
-  const CoreService = require('.././grpc-api/services/coreFunctionality');
+  const CoreService = require('../grpc-api/services/coreFunctionality');
   const service = new CoreService(config);
 
   /**

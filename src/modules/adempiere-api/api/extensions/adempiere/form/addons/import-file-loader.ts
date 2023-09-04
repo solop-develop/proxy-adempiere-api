@@ -1,5 +1,5 @@
 /************************************************************************************
- * Copyright (C) 2018-2023 E.R.P. Consultores y Asociados, C.A.                     *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                  *
  * Contributor(s): Elsio Sanchez elsiosanchez15@outlook.com                         *
  * This program is free software: you can redistribute it and/or modify             *
  * it under the terms of the GNU General Public License as published by             *
@@ -17,7 +17,7 @@ import { Router } from 'express';
 import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 // Utils and Helper Methods
-import { getLookupItemFromGRPC } from '../.././grpc-api/utils/userInterfaceFromGRPC';
+import { getLookupItemFromGRPC } from '../../grpc-api/utils/userInterfaceFromGRPC';
 import { convertEntitiesListFromGRPC } from '../../util/convertData';
 
 function getImportColumnFromGRPC (importColumnToConvert) {
@@ -87,7 +87,7 @@ function getImportFormatFromGRPC (importFormatToConvert) {
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   let api = Router();
-  const ServiceApi = require('../.././grpc-api/services/importFileLoader');
+  const ServiceApi = require('../../grpc-api/services/importFileLoader');
   const service = new ServiceApi(config);
 
   api.get('/list-charsets', (req, res) => {

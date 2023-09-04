@@ -24,14 +24,14 @@ import {
 import {
   getDecimalFromGRPC,
   getProcessLogFromGRPC
-} from '../../.././grpc-api/utils/baseDataTypeFromGRPC.js';
+} from '../../../grpc-api/utils/baseDataTypeFromGRPC.js';
 import {
   getBankAccountFromGRPC,
   getCurrencyFromGRPC
-} from '../../.././grpc-api/utils/coreFunctionalityFromGRPC';
+} from '../../../grpc-api/utils/coreFunctionalityFromGRPC';
 import {
   convertDocumentStatusFromGRPC
-} from '../../.././grpc-api/lib/convertBaseDataType.js';
+} from '../../../grpc-api/lib/convertBaseDataType.js';
 import {
   convertKeyLayoutFromGRPC,
   convertAvailableWarehouse,
@@ -44,7 +44,7 @@ import {
   convertShipmentFromGRPC,
   convertCashSummaryMovements,
   convertCashClosing
-} from '../../.././grpc-api/lib/convertPointOfSales'
+} from '../../../grpc-api/lib/convertPointOfSales'
 import {
   convertChargeFromGRPC,
   convertProductConversionFromGRPC,
@@ -53,7 +53,7 @@ import {
   convertSalesRepresentativeFromGRPC,
   convertPriceListFromGRPC,
   convertWarehouseFromGRPC
-} from '../../.././grpc-api/utils/convertCoreFunctionality'
+} from '../../../grpc-api/utils/convertCoreFunctionality'
 
 function convertPointOfSalesFromGRPC (pointOfSales) {
   if (!pointOfSales) {
@@ -349,7 +349,7 @@ function convertShipmentLineFromGRPC (shipmentLineToConvert) {
   }
   const {
     convertProductFromGRPC
-  } = require('../../.././grpc-api/utils/convertCoreFunctionality');
+  } = require('../../../grpc-api/utils/convertCoreFunctionality');
 
   return {
     id: shipmentLineToConvert.getId(),
@@ -432,7 +432,7 @@ function getPrintTicketFromGRPC (printTicketToConvert) {
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('../../.././grpc-api/services/pointOfSales')
+  const ServiceApi = require('../../../grpc-api/services/pointOfSales')
   const service = new ServiceApi(config)
 
   /**

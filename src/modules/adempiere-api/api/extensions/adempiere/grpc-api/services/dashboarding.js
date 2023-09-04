@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class Dashboarding {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/dashboarding_pb.js');
+  stubFile = require('../grpc/proto/dashboarding_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class Dashboarding {
   // Init connection
   initDashboardingService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/dashboarding_grpc_pb');
+    const services = require('../grpc/proto/dashboarding_grpc_pb');
     this.dashboarding = new services.DashboardingClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -316,9 +316,8 @@ class Dashboarding {
     );
     request.setRecordUuid(recordUuid);
 
-    const { getTypeOfValue } = require('.././utils/valueUtils.js');
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
       }
@@ -341,7 +340,7 @@ class Dashboarding {
       if (getTypeOfValue(filters) === 'String') {
         filters = JSON.parse(filters);
       }
-      const { getValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       const { Filter } = this.stubFile;
       filters.forEach(filter => {
         let parsedFilter = filter;

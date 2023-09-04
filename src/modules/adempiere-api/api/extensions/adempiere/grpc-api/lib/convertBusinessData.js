@@ -20,7 +20,7 @@ const convertBusinessData = {
     if (!callout) {
       return undefined;
     }
-    const { getValuesMapFromGRPC } = require('.././utils/valueUtilsFromGRPC.js');
+    const { getValuesMapFromGRPC } = require('../utils/valueUtilsFromGRPC.js');
     return {
       result: callout.getResult(),
       values: getValuesMapFromGRPC({

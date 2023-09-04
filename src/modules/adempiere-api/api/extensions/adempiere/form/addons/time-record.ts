@@ -18,10 +18,10 @@ import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
   getDecimalFromGRPC
-} from '../.././grpc-api/utils/baseDataTypeFromGRPC.js';
+} from '../../grpc-api/utils/baseDataTypeFromGRPC.js';
 import {
   convertUnitOfMeasureFromGRPC
-} from '../.././grpc-api/utils/convertCoreFunctionality'
+} from '../../grpc-api/utils/convertCoreFunctionality'
 
 // Convert issue (request) type from gRPC to JSON
 function getIssueFromGRPC (issue) {
@@ -122,7 +122,7 @@ export function getResourceAssignmentFromGRPC (resourceAssignment) {
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   const api = Router();
-  const ServiceApi = require('../.././grpc-api/services/timeRecord.js')
+  const ServiceApi = require('../../grpc-api/services/timeRecord.js')
   const service = new ServiceApi(config);
 
   api.post('/', (req, res) => {

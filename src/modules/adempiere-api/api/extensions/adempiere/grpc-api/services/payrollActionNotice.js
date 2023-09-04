@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Product: ADempiere gRPC Payroll Action Notice Client                              *
- * Copyright (C) 2012-2023 E.R.P. Consultores y Asociados, C.A.                      *
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                   *
  * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                      *
  * This program is free software: you can redistribute it and/or modify              *
  * it under the terms of the GNU General Public License as published by              *
@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getTypeOfValue, getValidId } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getTypeOfValue, getValidInteger } = require('../utils/valueUtils.js');
 
 class PayrollActionNotice {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/payroll_action_notice_pb.js');
+  stubFile = require('../grpc/proto/payment_allocation_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class PayrollActionNotice {
   // Init connection
   initPayrollActionNoticeService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/payroll_action_notice_grpc_pb');
+    const services = require('../grpc/proto/payroll_action_notice_grpc_pb');
     this.payrollActionNotice = new services.PayrollActionNoticeClient(
       this.businessHost,
       grpc.credentials.createInsecure()
@@ -72,7 +72,7 @@ class PayrollActionNotice {
     request.setSearchValue(searchValue);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -120,7 +120,7 @@ class PayrollActionNotice {
     request.setSearchValue(searchValue);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -168,7 +168,7 @@ class PayrollActionNotice {
     request.setSearchValue(searchValue);
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -239,7 +239,7 @@ class PayrollActionNotice {
 
     request.setSearchValue(searchValue);
     if (!isEmptyValue(filters)) {
-      const { getCriteriaToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getCriteriaToGRPC } = require('../utils/baseDataTypeToGRPC.js');
       request.setFilters(
         getCriteriaToGRPC({
           filters
@@ -248,7 +248,7 @@ class PayrollActionNotice {
     }
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
@@ -291,10 +291,10 @@ class PayrollActionNotice {
   }, callback) {
     const { SavePayrollMovementRequest } = this.stubFile;
     const request = new SavePayrollMovementRequest();
-    const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+    const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
     request.setId(
-      getValidId(id)
+      getValidInteger(id)
     );
     request.setUuid(uuid);
 
@@ -356,7 +356,7 @@ class PayrollActionNotice {
     const request = new DeletePayrollMovementsRequest();
 
     if (!isEmptyValue(contextAttributes)) {
-      const { getKeyValueToGRPC } = require('.././utils/baseDataTypeToGRPC.js');
+      const { getKeyValueToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
       if (getTypeOfValue(contextAttributes) === 'String') {
         contextAttributes = JSON.parse(contextAttributes);
