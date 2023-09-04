@@ -14,14 +14,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.             *
  ************************************************************************************/
 
-const { getMetadata } = require('.././utils/metadata.js');
-const { isEmptyValue, getValidInteger } = require('.././utils/valueUtils.js');
+const { getMetadata } = require('../utils/metadata.js');
+const { isEmptyValue, getValidInteger, getTypeOfValue } = require('../utils/valueUtils.js');
 
 class UserCustomization {
   /**
    * File on generated stub
    */
-  stubFile = require('.././grpc/proto/user_customization_pb.js');
+  stubFile = require('../grpc/proto/user_customization_pb.js');
 
   /**
    * Constructor, No authentication required
@@ -45,7 +45,7 @@ class UserCustomization {
   // Init connection
   initUserCustomizationService () {
     const grpc = require('@grpc/grpc-js');
-    const services = require('.././grpc/proto/user_customization_grpc_pb');
+    const services = require('../grpc/proto/user_customization_grpc_pb');
     this.userCustomization = new services.UserCustomizationClient(
       this.businessHost, grpc.credentials.createInsecure()
     );
@@ -189,13 +189,11 @@ class UserCustomization {
     request.setLevelUuid(levelUuid);
 
     if (!isEmptyValue(fieldAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-
       if (getTypeOfValue(fieldAttributes) === 'String') {
         fieldAttributes = JSON.parse(fieldAttributes);
       }
 
-      const { getFieldAttributesToGRPC } = require('.././grpc-api/utils/userCustomizationToGRPC.js');
+      const { getFieldAttributesToGRPC } = require('../utils/userCustomizationToGRPC.js');
       fieldAttributes.forEach(fieldAttribute => {
         let parsedFieldAttribute = fieldAttribute;
         if (getTypeOfValue(fieldAttribute) === 'String') {
@@ -252,13 +250,11 @@ class UserCustomization {
     request.setLevelUuid(levelUuid);
 
     if (!isEmptyValue(fieldAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-
       if (getTypeOfValue(fieldAttributes) === 'String') {
         fieldAttributes = JSON.parse(fieldAttributes);
       }
 
-      const { getFieldAttributesToGRPC } = require('.././grpc-api/utils/userCustomizationToGRPC.js');
+      const { getFieldAttributesToGRPC } = require('../utils/userCustomizationToGRPC.js');
       fieldAttributes.forEach(fieldAttribute => {
         let parsedFieldAttribute = fieldAttribute;
         if (getTypeOfValue(fieldAttribute) === 'String') {
@@ -315,13 +311,11 @@ class UserCustomization {
     request.setLevelUuid(levelUuid);
 
     if (!isEmptyValue(fieldAttributes)) {
-      const { getTypeOfValue } = require('.././utils/valueUtils.js');
-
       if (getTypeOfValue(fieldAttributes) === 'String') {
         fieldAttributes = JSON.parse(fieldAttributes);
       }
 
-      const { getFieldAttributesToGRPC } = require('.././grpc-api/utils/userCustomizationToGRPC.js');
+      const { getFieldAttributesToGRPC } = require('../utils/userCustomizationToGRPC.js');
       fieldAttributes.forEach(fieldAttribute => {
         let parsedFieldAttribute = fieldAttribute;
         if (getTypeOfValue(fieldAttribute) === 'String') {

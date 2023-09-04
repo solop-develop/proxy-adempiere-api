@@ -26,7 +26,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
    *
    * @param {string} token - user token
    * @param {string} tab_uuid - tab uuid
-   * @param {number} level - asp level to apply (user/role/client)
+   * @param {number} level_type - asp level to apply (user/role/client)
    * @param {number} level_id - value of level
    * @param {string} level_uuid - value of level
    * @param {array} field_attributes - attributes to set
@@ -41,7 +41,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         token: req.headers.authorization,
         //
         tabUuid: req.body.tab_uuid,
-        level: req.body.level,
+        levelType: req.body.level_type,
         levelId: req.body.level_id,
         levelUuid: req.body.level_uuid,
         fieldAttributes: req.body.field_attributes
