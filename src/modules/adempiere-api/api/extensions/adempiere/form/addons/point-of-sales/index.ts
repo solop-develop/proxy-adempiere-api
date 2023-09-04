@@ -117,6 +117,7 @@ function convertPointOfSalesFromGRPC (pointOfSales) {
     is_allows_apply_discount: pointOfSales.getIsAllowsApplyDiscount(),
     is_allows_detail_cash_closing: pointOfSales.getIsAllowsDetailCashClosing(),
     is_write_off_by_percent: pointOfSales.getIsWriteOffByPercent(),
+    is_allows_write_off_amount: pointOfSales.getIsAllowsWriteOffAmount(),
     write_off_percentage_tolerance: getDecimalFromGRPC(
       pointOfSales.getWriteOffPercentageTolerance()
     ),

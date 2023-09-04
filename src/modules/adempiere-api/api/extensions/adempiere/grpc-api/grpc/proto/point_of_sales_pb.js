@@ -28707,7 +28707,8 @@ proto.data.PointOfSales.toObject = function(includeInstance, msg) {
     isAllowsModifyCustomer: jspb.Message.getBooleanFieldWithDefault(msg, 50, false),
     isAllowsDetailCashClosing: jspb.Message.getBooleanFieldWithDefault(msg, 51, false),
     writeOffPercentageTolerance: (f = msg.getWriteOffPercentageTolerance()) && proto_base_data_type_pb.Decimal.toObject(includeInstance, f),
-    isWriteOffByPercent: jspb.Message.getBooleanFieldWithDefault(msg, 53, false)
+    isWriteOffByPercent: jspb.Message.getBooleanFieldWithDefault(msg, 53, false),
+    isAllowsWriteOffAmount: jspb.Message.getBooleanFieldWithDefault(msg, 54, false)
   };
 
   if (includeInstance) {
@@ -28972,6 +28973,10 @@ proto.data.PointOfSales.deserializeBinaryFromReader = function(msg, reader) {
     case 53:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsWriteOffByPercent(value);
+      break;
+    case 54:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAllowsWriteOffAmount(value);
       break;
     default:
       reader.skipField();
@@ -29387,6 +29392,13 @@ proto.data.PointOfSales.serializeBinaryToWriter = function(message, writer) {
   if (f) {
     writer.writeBool(
       53,
+      f
+    );
+  }
+  f = message.getIsAllowsWriteOffAmount();
+  if (f) {
+    writer.writeBool(
+      54,
       f
     );
   }
@@ -30667,6 +30679,24 @@ proto.data.PointOfSales.prototype.getIsWriteOffByPercent = function() {
  */
 proto.data.PointOfSales.prototype.setIsWriteOffByPercent = function(value) {
   return jspb.Message.setProto3BooleanField(this, 53, value);
+};
+
+
+/**
+ * optional bool is_allows_write_off_amount = 54;
+ * @return {boolean}
+ */
+proto.data.PointOfSales.prototype.getIsAllowsWriteOffAmount = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 54, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.data.PointOfSales} returns this
+ */
+proto.data.PointOfSales.prototype.setIsAllowsWriteOffAmount = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 54, value);
 };
 
 
