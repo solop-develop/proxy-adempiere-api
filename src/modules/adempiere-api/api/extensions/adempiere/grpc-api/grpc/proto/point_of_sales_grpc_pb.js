@@ -826,26 +826,26 @@ function deserialize_data_ListCustomerBankAccountsResponse(buffer_arg) {
   return proto_point_of_sales_pb.ListCustomerBankAccountsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_data_ListCustomerCreditRequest(arg) {
-  if (!(arg instanceof proto_point_of_sales_pb.ListCustomerCreditRequest)) {
-    throw new Error('Expected argument of type data.ListCustomerCreditRequest');
+function serialize_data_ListCustomerCreditsRequest(arg) {
+  if (!(arg instanceof proto_point_of_sales_pb.ListCustomerCreditsRequest)) {
+    throw new Error('Expected argument of type data.ListCustomerCreditsRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_data_ListCustomerCreditRequest(buffer_arg) {
-  return proto_point_of_sales_pb.ListCustomerCreditRequest.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_data_ListCustomerCreditsRequest(buffer_arg) {
+  return proto_point_of_sales_pb.ListCustomerCreditsRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_data_ListCustomerCreditResponse(arg) {
-  if (!(arg instanceof proto_point_of_sales_pb.ListCustomerCreditResponse)) {
-    throw new Error('Expected argument of type data.ListCustomerCreditResponse');
+function serialize_data_ListCustomerCreditsResponse(arg) {
+  if (!(arg instanceof proto_point_of_sales_pb.ListCustomerCreditsResponse)) {
+    throw new Error('Expected argument of type data.ListCustomerCreditsResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_data_ListCustomerCreditResponse(buffer_arg) {
-  return proto_point_of_sales_pb.ListCustomerCreditResponse.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_data_ListCustomerCreditsResponse(buffer_arg) {
+  return proto_point_of_sales_pb.ListCustomerCreditsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_data_ListOrderLinesRequest(arg) {
@@ -2330,16 +2330,16 @@ createOrderFromRMA: {
   },
   // 	Credit Memo as Payment Method
 // 	List Refund References
-listCustomerCredit: {
-    path: '/data.Store/ListCustomerCredit',
+listCustomerCredits: {
+    path: '/data.Store/ListCustomerCredits',
     requestStream: false,
     responseStream: false,
-    requestType: proto_point_of_sales_pb.ListCustomerCreditRequest,
-    responseType: proto_point_of_sales_pb.ListCustomerCreditResponse,
-    requestSerialize: serialize_data_ListCustomerCreditRequest,
-    requestDeserialize: deserialize_data_ListCustomerCreditRequest,
-    responseSerialize: serialize_data_ListCustomerCreditResponse,
-    responseDeserialize: deserialize_data_ListCustomerCreditResponse,
+    requestType: proto_point_of_sales_pb.ListCustomerCreditsRequest,
+    responseType: proto_point_of_sales_pb.ListCustomerCreditsResponse,
+    requestSerialize: serialize_data_ListCustomerCreditsRequest,
+    requestDeserialize: deserialize_data_ListCustomerCreditsRequest,
+    responseSerialize: serialize_data_ListCustomerCreditsResponse,
+    responseDeserialize: deserialize_data_ListCustomerCreditsResponse,
   },
 };
 
