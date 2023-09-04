@@ -115,6 +115,11 @@ function convertPointOfSalesFromGRPC (pointOfSales) {
     is_allows_cash_opening: pointOfSales.getIsAllowsCashOpening(),
     is_allows_cash_withdrawal: pointOfSales.getIsAllowsCashWithdrawal(),
     is_allows_apply_discount: pointOfSales.getIsAllowsApplyDiscount(),
+    is_allows_detail_cash_closing: pointOfSales.getIsAllowsDetailCashClosing(),
+    is_write_off_by_percent: pointOfSales.getIsWriteOffByPercent(),
+    write_off_percentage_tolerance: getDecimalFromGRPC(
+      pointOfSales.getWriteOffPercentageTolerance()
+    ),
     default_campaign: getCampaignFromGRPC(
       pointOfSales.getDefaultCampaign()
     ),
