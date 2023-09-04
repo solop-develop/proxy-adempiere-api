@@ -45,7 +45,7 @@ const convertEnums = {
       DATE = 5;
    */
   getValue_ValueType ({ key, value }) {
-    const { Value } = require('.././grpc-api/grpc/proto/base_data_type_pb.js');
+    const { Value } = require('../grpc/proto/base_data_type_pb.js');
     const { ValueType } = Value;
 
     return convertEnums.getValueOrKey({
@@ -63,7 +63,7 @@ const convertEnums = {
       DESCENDING = 1;
   */
   getOrderType ({ key, value }) {
-    const { OrderType } = require('.././grpc-api/grpc/proto/base_data_type_pb.js');
+    const { OrderType } = require('../grpc/proto/base_data_type_pb.js');
 
     return convertEnums.getValueOrKey({
       list: OrderType,
@@ -82,7 +82,7 @@ const convertEnums = {
       DELETE = 2;
    */
   getRollbackEntityRequest_EventType ({ key, value }) {
-    const { RollbackEntityRequest } = require('.././grpc-api/grpc/proto/business_pb.js');
+    const { RollbackEntityRequest } = require('../grpc/proto/business_pb.js');
     const { EventType } = RollbackEntityRequest;
 
     return convertEnums.getValueOrKey({
@@ -101,7 +101,7 @@ const convertEnums = {
         INTERNAL = 2;
    */
   getChatEntry_ConfidentialType ({ key, value }) {
-    const { ChatEntry } = require('.././grpc-api/grpc/proto/business_pb.js');
+    const { ChatEntry } = require('../grpc/proto/business_pb.js');
     const { ConfidentialType } = ChatEntry;
 
     return convertEnums.getValueOrKey({
@@ -121,7 +121,7 @@ const convertEnums = {
         TO_BE_REVIEWED = 3;
    */
   getChatEntry_ModeratorStatus ({ key, value }) {
-    const { ChatEntry } = require('.././grpc-api/grpc/proto/business_pb.js');
+    const { ChatEntry } = require('../grpc/proto/business_pb.js');
     const { ModeratorStatus } = ChatEntry;
 
     return convertEnums.getValueOrKey({
@@ -140,7 +140,7 @@ const convertEnums = {
         WIKI = 2;
    */
   getChatEntry_ChatEntryType ({ key, value }) {
-    const { ChatEntry } = require('.././grpc-api/grpc/proto/business_pb.js');
+    const { ChatEntry } = require('../grpc/proto/business_pb.js');
     const { ChatEntryType } = ChatEntry;
 
     return convertEnums.getValueOrKey({
