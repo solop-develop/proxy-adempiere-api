@@ -252,19 +252,10 @@
   "platform": "magento2",
   "modules": {
     "defaultCatalog": {
-      "registeredExtensions": [
-        // "example-processor",
-        // "example-custom-filter",
-        // "elastic-stock"
-      ]
+      "registeredExtensions": []
     },
     "defaultVsf": {
-      "registeredExtensions": [
-        // "mailchimp-subscribe",
-        // "example-magento-api",
-        // "cms-data",
-        // "mail-service"
-      ]
+      "registeredExtensions": []
     },
     "adempiereApi": {
       "registeredExtensions": [

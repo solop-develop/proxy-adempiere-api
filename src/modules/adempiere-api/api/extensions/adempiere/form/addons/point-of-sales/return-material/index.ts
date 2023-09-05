@@ -17,7 +17,8 @@ import { Router } from 'express';
 import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
 
 import {
-  getRMAFromGRPC
+  getRMAFromGRPC,
+  getOrderFromGRPC
 } from '../pointOfSalesFromGRPC';
 
 module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
@@ -59,12 +60,12 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         token: req.headers.authorization,
         posId: req.body.pos_id,
         salesRepresentativeId: req.body.sales_representative_id,
-        sourceRmaId: req.query.source_rma_id
+        sourceRmaId: req.body.source_rma_id
       }, (err, response) => {
         if (response) {
           res.json({
             code: 200,
-            result: getRMAFromGRPC(response)
+            result: getOrderFromGRPC(response)
           });
         } else if (err) {
           res.json({
