@@ -50289,11 +50289,12 @@ proto.data.CreditMemo.prototype.toObject = function(opt_includeInstance) {
 proto.data.CreditMemo.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    uuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    startDate: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    endDate: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    documentNo: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    documentDate: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    amount: (f = msg.getAmount()) && proto_base_data_type_pb.Decimal.toObject(includeInstance, f),
+    openAmount: (f = msg.getOpenAmount()) && proto_base_data_type_pb.Decimal.toObject(includeInstance, f),
+    currency: (f = msg.getCurrency()) && proto_core_functionality_pb.Currency.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -50336,23 +50337,30 @@ proto.data.CreditMemo.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUuid(value);
+      msg.setDocumentNo(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setDescription(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
+      msg.setDocumentDate(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setStartDate(value);
+      var value = new proto_base_data_type_pb.Decimal;
+      reader.readMessage(value,proto_base_data_type_pb.Decimal.deserializeBinaryFromReader);
+      msg.setAmount(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setEndDate(value);
+      var value = new proto_base_data_type_pb.Decimal;
+      reader.readMessage(value,proto_base_data_type_pb.Decimal.deserializeBinaryFromReader);
+      msg.setOpenAmount(value);
+      break;
+    case 7:
+      var value = new proto_core_functionality_pb.Currency;
+      reader.readMessage(value,proto_core_functionality_pb.Currency.deserializeBinaryFromReader);
+      msg.setCurrency(value);
       break;
     default:
       reader.skipField();
@@ -50390,39 +50398,49 @@ proto.data.CreditMemo.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getUuid();
+  f = message.getDocumentNo();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getName();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getDescription();
+  f = message.getDocumentDate();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = message.getStartDate();
-  if (f !== 0) {
-    writer.writeInt64(
+  f = message.getAmount();
+  if (f != null) {
+    writer.writeMessage(
       5,
-      f
+      f,
+      proto_base_data_type_pb.Decimal.serializeBinaryToWriter
     );
   }
-  f = message.getEndDate();
-  if (f !== 0) {
-    writer.writeInt64(
+  f = message.getOpenAmount();
+  if (f != null) {
+    writer.writeMessage(
       6,
-      f
+      f,
+      proto_base_data_type_pb.Decimal.serializeBinaryToWriter
+    );
+  }
+  f = message.getCurrency();
+  if (f != null) {
+    writer.writeMessage(
+      7,
+      f,
+      proto_core_functionality_pb.Currency.serializeBinaryToWriter
     );
   }
 };
@@ -50447,10 +50465,10 @@ proto.data.CreditMemo.prototype.setId = function(value) {
 
 
 /**
- * optional string uuid = 2;
+ * optional string document_no = 2;
  * @return {string}
  */
-proto.data.CreditMemo.prototype.getUuid = function() {
+proto.data.CreditMemo.prototype.getDocumentNo = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -50459,16 +50477,16 @@ proto.data.CreditMemo.prototype.getUuid = function() {
  * @param {string} value
  * @return {!proto.data.CreditMemo} returns this
  */
-proto.data.CreditMemo.prototype.setUuid = function(value) {
+proto.data.CreditMemo.prototype.setDocumentNo = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
+ * optional string description = 3;
  * @return {string}
  */
-proto.data.CreditMemo.prototype.getName = function() {
+proto.data.CreditMemo.prototype.getDescription = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -50477,16 +50495,16 @@ proto.data.CreditMemo.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.data.CreditMemo} returns this
  */
-proto.data.CreditMemo.prototype.setName = function(value) {
+proto.data.CreditMemo.prototype.setDescription = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string description = 4;
+ * optional string document_date = 4;
  * @return {string}
  */
-proto.data.CreditMemo.prototype.getDescription = function() {
+proto.data.CreditMemo.prototype.getDocumentDate = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -50495,44 +50513,119 @@ proto.data.CreditMemo.prototype.getDescription = function() {
  * @param {string} value
  * @return {!proto.data.CreditMemo} returns this
  */
-proto.data.CreditMemo.prototype.setDescription = function(value) {
+proto.data.CreditMemo.prototype.setDocumentDate = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional int64 start_date = 5;
- * @return {number}
+ * optional Decimal amount = 5;
+ * @return {?proto.data.Decimal}
  */
-proto.data.CreditMemo.prototype.getStartDate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+proto.data.CreditMemo.prototype.getAmount = function() {
+  return /** @type{?proto.data.Decimal} */ (
+    jspb.Message.getWrapperField(this, proto_base_data_type_pb.Decimal, 5));
 };
 
 
 /**
- * @param {number} value
+ * @param {?proto.data.Decimal|undefined} value
+ * @return {!proto.data.CreditMemo} returns this
+*/
+proto.data.CreditMemo.prototype.setAmount = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.data.CreditMemo} returns this
  */
-proto.data.CreditMemo.prototype.setStartDate = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+proto.data.CreditMemo.prototype.clearAmount = function() {
+  return this.setAmount(undefined);
 };
 
 
 /**
- * optional int64 end_date = 6;
- * @return {number}
+ * Returns whether this field is set.
+ * @return {boolean}
  */
-proto.data.CreditMemo.prototype.getEndDate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+proto.data.CreditMemo.prototype.hasAmount = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
 /**
- * @param {number} value
+ * optional Decimal open_amount = 6;
+ * @return {?proto.data.Decimal}
+ */
+proto.data.CreditMemo.prototype.getOpenAmount = function() {
+  return /** @type{?proto.data.Decimal} */ (
+    jspb.Message.getWrapperField(this, proto_base_data_type_pb.Decimal, 6));
+};
+
+
+/**
+ * @param {?proto.data.Decimal|undefined} value
+ * @return {!proto.data.CreditMemo} returns this
+*/
+proto.data.CreditMemo.prototype.setOpenAmount = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.data.CreditMemo} returns this
  */
-proto.data.CreditMemo.prototype.setEndDate = function(value) {
-  return jspb.Message.setProto3IntField(this, 6, value);
+proto.data.CreditMemo.prototype.clearOpenAmount = function() {
+  return this.setOpenAmount(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.data.CreditMemo.prototype.hasOpenAmount = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional Currency currency = 7;
+ * @return {?proto.data.Currency}
+ */
+proto.data.CreditMemo.prototype.getCurrency = function() {
+  return /** @type{?proto.data.Currency} */ (
+    jspb.Message.getWrapperField(this, proto_core_functionality_pb.Currency, 7));
+};
+
+
+/**
+ * @param {?proto.data.Currency|undefined} value
+ * @return {!proto.data.CreditMemo} returns this
+*/
+proto.data.CreditMemo.prototype.setCurrency = function(value) {
+  return jspb.Message.setWrapperField(this, 7, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.data.CreditMemo} returns this
+ */
+proto.data.CreditMemo.prototype.clearCurrency = function() {
+  return this.setCurrency(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.data.CreditMemo.prototype.hasCurrency = function() {
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
@@ -50571,7 +50664,8 @@ proto.data.ListCustomerCreditsRequest.toObject = function(includeInstance, msg) 
     pageSize: jspb.Message.getFieldWithDefault(msg, 1, 0),
     pageToken: jspb.Message.getFieldWithDefault(msg, 2, ""),
     searchValue: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    posId: jspb.Message.getFieldWithDefault(msg, 4, "")
+    posId: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    customerId: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -50621,8 +50715,12 @@ proto.data.ListCustomerCreditsRequest.deserializeBinaryFromReader = function(msg
       msg.setSearchValue(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setPosId(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCustomerId(value);
       break;
     default:
       reader.skipField();
@@ -50675,9 +50773,16 @@ proto.data.ListCustomerCreditsRequest.serializeBinaryToWriter = function(message
     );
   }
   f = message.getPosId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt32(
       4,
+      f
+    );
+  }
+  f = message.getCustomerId();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
       f
     );
   }
@@ -50739,20 +50844,38 @@ proto.data.ListCustomerCreditsRequest.prototype.setSearchValue = function(value)
 
 
 /**
- * optional string pos_id = 4;
- * @return {string}
+ * optional int32 pos_id = 4;
+ * @return {number}
  */
 proto.data.ListCustomerCreditsRequest.prototype.getPosId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.data.ListCustomerCreditsRequest} returns this
  */
 proto.data.ListCustomerCreditsRequest.prototype.setPosId = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int32 customer_id = 5;
+ * @return {number}
+ */
+proto.data.ListCustomerCreditsRequest.prototype.getCustomerId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.data.ListCustomerCreditsRequest} returns this
+ */
+proto.data.ListCustomerCreditsRequest.prototype.setCustomerId = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 

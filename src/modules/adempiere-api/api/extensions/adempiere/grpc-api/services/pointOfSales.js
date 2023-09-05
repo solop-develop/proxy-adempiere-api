@@ -2735,6 +2735,47 @@ class PointOfSales {
   }
 
   /**
+   * List Customer Credits
+   * @param {string} token
+   * @param {number} posId
+   * @param {number} customerId
+   * @param {number} pageSize
+   * @param {string} pageToken
+   */
+  listCustomerCredits ({
+    token,
+    // DSL
+    posId,
+    customerId,
+    pageSize,
+    pageToken
+  }, callback) {
+    const { ListCustomerCreditsRequest } = this.stubFile;
+    const request = new ListCustomerCreditsRequest();
+
+    request.setPosId(
+      getValidInteger(posId)
+    );
+    request.setCustomerId(
+      getValidInteger(customerId)
+    );
+    request.setPageSize(
+      getValidInteger(pageSize)
+    );
+    request.setPageToken(pageToken);
+
+    const metadata = getMetadata({
+      token
+    });
+
+    this.getPointOfSalesService().listCustomerCredits(
+      request,
+      metadata,
+      callback
+    );
+  }
+
+  /**
    * Create RMA Line
    * @param {string} token
    * @param {number} posId

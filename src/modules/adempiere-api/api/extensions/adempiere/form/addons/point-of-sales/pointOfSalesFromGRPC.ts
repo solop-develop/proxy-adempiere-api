@@ -49,6 +49,24 @@ export function getCampaignFromGRPC (campaignToConvert) {
   }
 }
 
+export function getCustomerCreditFromGRPC (customerCredit) {
+  if (!customerCredit) {
+    return undefined;
+  }
+  return {
+    id: customerCredit.getId(),
+    document_no: customerCredit.getDocumentNo(),
+    description: customerCredit.getDescription(),
+    document_date: customerCredit.getDocumentDate(),
+    amount: getDecimalFromGRPC(
+      customerCredit.getAmount()
+    ),
+    open_amount: getDecimalFromGRPC(
+      customerCredit.getOpenAmount()
+    )
+  }
+}
+
 export function getOrderFromGRPC (order) {
   if (!order) {
     return undefined;
