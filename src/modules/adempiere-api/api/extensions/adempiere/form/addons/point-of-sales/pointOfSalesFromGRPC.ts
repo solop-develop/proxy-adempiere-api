@@ -143,7 +143,10 @@ export function getOrderFromGRPC (order) {
     credit_amount: getDecimalFromGRPC(
       order.getCreditAmount()
     ),
-    source_rma_id: order.getSourceRmaId()
+    source_rma_id: order.getSourceRmaId(),
+    is_rma: order.getIsRma(),
+    is_binding_offer: order.getIsBindingOffer(),
+    is_order: order.getIsOrder()
   };
 }
 

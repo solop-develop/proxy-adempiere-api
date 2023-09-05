@@ -514,6 +514,7 @@ class PointOfSales {
     isBindingOffer,
     isClosed,
     isNullified,
+    isOnlyRMA,
     dateOrderedFrom,
     dateOrderedTo,
     salesRepresentativeUuid,
@@ -573,6 +574,7 @@ class PointOfSales {
     request.setIsBindingOffer(isBindingOffer);
     request.setIsClosed(isClosed);
     request.setIsNullified(isNullified);
+    request.setIsOnlyRma(isOnlyRMA);
     request.setSalesRepresentativeUuid(salesRepresentativeUuid)
     request.setPageSize(
       getValidInteger(pageSize)
