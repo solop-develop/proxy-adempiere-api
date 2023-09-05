@@ -243,6 +243,7 @@ class PointOfSales {
     const request = new ReleaseOrderRequest()
     request.setPosUuid(posUuid)
     request.setOrderUuid(orderUuid)
+    request.setOrderUuid(salesRepresentativeUuid)
 
     const metadata = getMetadata({
       token
@@ -2890,6 +2891,44 @@ class PointOfSales {
     });
 
     this.getPointOfSalesService().deleteRMALine(
+      request,
+      metadata,
+      callback
+    );
+  }
+
+  /**
+   * Create Order from RMA
+   * @param {string} token
+   * @param {number} posId
+   * @param {number} id
+   */
+  createOrderFromRMA ({
+    token,
+    // DSL
+    posId,
+    sourceRmaId,
+    salesRepresentativeId
+  }, callback) {
+    const { CreateOrderFromRMARequest } = this.stubFile;
+    const request = new CreateOrderFromRMARequest();
+
+    request.setPosId(
+      getValidInteger(posId)
+    );
+    request.setSourceRmaId(
+      getValidInteger(sourceRmaId)
+    );
+
+    request.setSalesRepresentativeId(
+      getValidInteger(salesRepresentativeId)
+    );
+
+    const metadata = getMetadata({
+      token
+    });
+
+    this.getPointOfSalesService().createOrderFromRMA(
       request,
       metadata,
       callback
