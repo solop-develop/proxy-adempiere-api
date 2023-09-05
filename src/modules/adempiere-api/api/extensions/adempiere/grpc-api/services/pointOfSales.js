@@ -2747,6 +2747,7 @@ class PointOfSales {
     // DSL
     posId,
     customerId,
+    searchValue,
     pageSize,
     pageToken
   }, callback) {
@@ -2763,7 +2764,7 @@ class PointOfSales {
       getValidInteger(pageSize)
     );
     request.setPageToken(pageToken);
-
+    request.setSearchValue(searchValue);
     const metadata = getMetadata({
       token
     });

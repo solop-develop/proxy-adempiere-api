@@ -49,6 +49,18 @@ export function getCampaignFromGRPC (campaignToConvert) {
   }
 }
 
+export function getCurrencyFromGRPC (currencyToConvert) {
+  if (!currencyToConvert) {
+    return undefined;
+  }
+  return {
+    id: currencyToConvert.getId(),
+    uuid: currencyToConvert.getUuid(),
+    iso_code: currencyToConvert.getIsoCode(),
+    description: currencyToConvert.getDescription()
+  };
+}
+
 export function getCustomerCreditFromGRPC (customerCredit) {
   if (!customerCredit) {
     return undefined;
@@ -63,7 +75,8 @@ export function getCustomerCreditFromGRPC (customerCredit) {
     ),
     open_amount: getDecimalFromGRPC(
       customerCredit.getOpenAmount()
-    )
+    ),
+    currency: getCurrencyFromGRPC(customerCredit.getCurrency())
   }
 }
 

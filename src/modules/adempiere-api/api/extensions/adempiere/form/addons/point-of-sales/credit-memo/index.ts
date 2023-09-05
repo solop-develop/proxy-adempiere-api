@@ -34,6 +34,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
       token: req.headers.authorization,
       posId: req.query.pos_id,
       customerId: req.query.customer_id,
+      searchValue: req.query.search_value,
       // Page Data
       pageSize: req.query.page_size,
       pageToken: req.query.page_token
