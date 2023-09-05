@@ -2028,6 +2028,7 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         isBindingOffer: req.query.is_binding_offer,
         isClosed: req.query.is_closed,
         isNullified: req.query.is_nullified,
+        isOnlyRMA: req.query.is_only_rma,
         pageSize: req.query.page_size,
         pageToken: req.query.page_token
       }, (err, response) => {
