@@ -243,7 +243,7 @@ class PointOfSales {
     const request = new ReleaseOrderRequest()
     request.setPosUuid(posUuid)
     request.setOrderUuid(orderUuid)
-    request.setOrderUuid(salesRepresentativeUuid)
+    request.setSalesRepresentativeUuid(salesRepresentativeUuid)
 
     const metadata = getMetadata({
       token
