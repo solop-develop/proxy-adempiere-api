@@ -35,7 +35,7 @@
     "@types/body-parser": "^1.17.0",
     "@types/config": "^0.0.41",
     "@types/cors": "^2.8.6",
-    "@types/lodash": "^4.14.198"
+    "@types/lodash": "4.14.172"
   },
   "bugs": {
     "url": "https://github.com/DivanteLtd/storefront-api/issues"
