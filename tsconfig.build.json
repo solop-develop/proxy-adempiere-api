@@ -32,5 +32,8 @@
     }
   ],
   "files": [],
-  "include": []
+  "include": [],
+  "exclude": [
+    "./packages/**/node_modules"
+  ]
 }
