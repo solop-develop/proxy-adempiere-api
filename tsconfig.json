@@ -14,23 +14,12 @@
     "outDir": "dist",
     "sourceMap": true,
     "baseUrl": ".",
+    "skipLibCheck": true,
     "lib": ["es7"]
   },
   "include": [
     "src/**/*",
     "scripts/**/*",
     "migrations/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/node_modules",
-    "**/**/node_modules",
-    "packages/*/node_modules",
-    "packages/**/node_modules",
-    "./packages/*/node_modules",
-    "./packages/**/node_modules",
-    "./packages/**/node_modules/",
-    "./packages/**/node_modules/*",
-    "./packages/**/node_modules/**"
   ]
 }
