@@ -1,12 +1,13 @@
-import { DefaultVuestorefrontApiModule } from '@storefront-api/default-vsf'
-import { DefaultCatalogModule } from '@storefront-api/default-catalog'
+// import { DefaultVuestorefrontApiModule } from '@storefront-api/default-vsf'
+// import { DefaultCatalogModule } from '@storefront-api/default-catalog'
 // import { DefaultImgModule } from '@storefront-api/default-img'
 // import { SampleApiModule } from './sample-api'
 import { ADempiereApi } from './adempiere-api'
-import { ADempiereStore } from './adempiere-store'
+// import { ADempiereStore } from './adempiere-store'
+import { ADempiereScheduler } from './scheduler'
 // import { TemplateModule } from './template-module'
 import { StorefrontApiModule } from '@storefront-api/lib/module'
-import * as magento2 from '@storefront-api/platform-magento2'
+// import * as magento2 from '@storefront-api/platform-magento2'
 
 export let modules: StorefrontApiModule[] = [
   // DefaultVuestorefrontApiModule({
@@ -19,7 +20,8 @@ export let modules: StorefrontApiModule[] = [
   // DefaultImgModule(),
   // SampleApiModule,
   // TemplateModule,
-  ADempiereApi
+  ADempiereApi,
+  ADempiereScheduler
   // ADempiereStore
 ]
 

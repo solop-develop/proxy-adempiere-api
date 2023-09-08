@@ -384,6 +384,10 @@
         "httpBased": "STORE_HTTP_BASED"
       }
     },
+    "adempiereScheduler": {
+      "registeredExtensions": [
+      ]
+    },
     "sampleApi": {
       "registeredExtensions": [
       ],
@@ -441,6 +445,9 @@
       "language": "en_US",
       "version": "Vue-Store-Front"
     }
+  },
+  "adempiereScheduler": {
+    "host": "SCHEDULER_HOST"
   },
   "magento2": {
     "imgUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product",

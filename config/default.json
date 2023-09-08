@@ -346,6 +346,10 @@
         "httpBased": false
       }
     },
+    "adempiereScheduler": {
+      "registeredExtensions": [
+      ]
+    },
     "sampleApi": {
       "registeredExtensions": [
       ],
@@ -403,6 +407,9 @@
       "language": "en_US",
       "version": "Vue-Store-Front"
     }
+  },
+  "adempiereScheduler": {
+    "host": "http://localhost:8080"
   },
   "magento2": {
     "imgUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product",
