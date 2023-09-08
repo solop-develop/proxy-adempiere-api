@@ -117,7 +117,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.8.*",
     "vuepress": "^1.2.0",
-    "winston": "^3.2.1"
+    "winston": "3.10.0"
   },
   "devDependencies": {
     "@types/cli-color": "^0.3.30",
