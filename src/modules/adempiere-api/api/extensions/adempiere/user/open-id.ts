@@ -63,8 +63,8 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   api.post('/login', (req, res) => {
     if (req.body) {
       service.runLoginOpenID({
-        codeParameter: req.body.code_parameter,
-        stateParameter: req.body.state_parameter,
+        codeParameter: req.body.code,
+        stateParameter: req.body.state,
         language: req.body.language,
         clientVersion: req.body.client_version
       }, (err, response) => {
