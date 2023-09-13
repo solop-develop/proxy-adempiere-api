@@ -6,8 +6,7 @@
   "main": "dist",
   "engineStrict": true,
   "engines": {
-    "node": ">=10",
-    "yarn": "=1.22.19"
+    "node": ">=10"
   },
   "packageManager": "yarn@1.22.19",
   "scripts": {
