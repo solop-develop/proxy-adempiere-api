@@ -90,6 +90,21 @@ export function getUserInfoFromGRPC (userInfo) {
   };
 }
 
+export function getClientFromGRPC (client) {
+  if (!client) {
+    return undefined;
+  }
+  return {
+    id: client.getId(),
+    uuid: client.getUuid(),
+    name: client.getName(),
+    description: client.getDescription(),
+    logo: client.getLogo(),
+    logo_report: client.getLogoReport(),
+    logo_web: client.getLogoWeb()
+  };
+}
+
 // get Role
 export function getRoleFromGRPC (role) {
   if (!role) {
@@ -100,11 +115,9 @@ export function getRoleFromGRPC (role) {
     uuid: role.getUuid(),
     name: role.getName(),
     description: role.getDescription(),
-    client_id: role.getClientId(),
-    client_name: role.getClientName(),
-    client_logo: role.getClientLogo(),
-    client_report_logo: role.getClientLogoReport(),
-    client_web_logo: role.getClientLogoWeb(),
+    client: getClientFromGRPC(
+      role.getClient()
+    ),
     is_can_report: role.getIsCanReport(),
     is_can_export: role.getIsCanExport(),
     is_personal_lock: role.getIsPersonalLock(),
