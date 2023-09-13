@@ -30,6 +30,7 @@ function getMenu (menu) {
   return {
     id: menu.getId(),
     uuid: menu.getUuid(),
+    parent_id: menu.getParentId(),
     parent_uuid: menu.getParentUuid(),
     name: menu.getName(),
     description: menu.getDescription(),
@@ -68,9 +69,9 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         user: req.body.username,
         password: req.body.password,
         token: req.body.token,
-        roleUuid: req.body.role_uuid,
-        organizationUuid: req.body.organization_uuid,
-        warehouseUuid: req.body.warehouse_uuid,
+        roleId: req.body.role_id,
+        organizationId: req.body.organization_id,
+        warehouseId: req.body.warehouse_id,
         language: req.query.language
       }, (err, response) => {
         if (response) {
@@ -123,9 +124,9 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
   api.post('/change-role', (req, res) => {
     service.changeRole({
       token: req.headers.authorization,
-      roleUuid: req.body.role,
-      organizationUuid: req.body.organization,
-      warehouseUuid: req.body.warehouse,
+      roleId: req.body.role_id,
+      organizationId: req.body.organization_id,
+      warehouseId: req.body.warehouse_id,
       language: req.query.language
     }, (err, response) => {
       if (response) {

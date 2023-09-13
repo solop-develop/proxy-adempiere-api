@@ -15,7 +15,7 @@
  ************************************************************************************/
 
 const { getMetadata } = require('../utils/metadata.js');
-const { getValidId } = require('../utils/valueUtils.js');
+const { getValidInteger } = require('../utils/valueUtils.js');
 
 class Security {
   /**
@@ -62,9 +62,9 @@ class Security {
     user,
     password,
     token, // token as password
-    roleUuid,
-    organizationUuid,
-    warehouseUuid,
+    roleId,
+    organizationId,
+    warehouseId,
     language
   }, callback) {
     const { LoginRequest } = this.stubFile;
@@ -73,9 +73,15 @@ class Security {
     request.setUserName(user);
     request.setUserPass(password);
     request.setToken(token);
-    request.setRoleUuid(roleUuid);
-    request.setOrganizationUuid(organizationUuid);
-    request.setWarehouseUuid(warehouseUuid);
+    request.setRoleId(
+      getValidInteger(roleId)
+    );
+    request.setOrganizationId(
+      getValidInteger(organizationId)
+    );
+    request.setWarehouseId(
+      getValidInteger(warehouseId)
+    );
     request.setLanguage(language);
     request.setClientVersion(this.version);
 
@@ -165,17 +171,23 @@ class Security {
   // Change role
   changeRole ({
     token,
-    roleUuid,
-    organizationUuid,
-    warehouseUuid,
+    roleId,
+    organizationId,
+    warehouseId,
     language
   }, callback) {
     const { ChangeRoleRequest } = this.stubFile;
     const request = new ChangeRoleRequest();
 
-    request.setRoleUuid(roleUuid);
-    request.setOrganizationUuid(organizationUuid);
-    request.setWarehouseUuid(warehouseUuid);
+    request.setRoleId(
+      getValidInteger(roleId)
+    );
+    request.setOrganizationId(
+      getValidInteger(organizationId)
+    );
+    request.setWarehouseId(
+      getValidInteger(warehouseId)
+    );
     request.setLanguage(language);
 
     const metadata = getMetadata({
@@ -201,7 +213,7 @@ class Security {
 
     request.setLanguage(language);
     request.setWarehouseId(
-      getValidId(warehouseId)
+      getValidInteger(warehouseId)
     );
     request.setWarehouseUuid(warehouseUuid);
 
