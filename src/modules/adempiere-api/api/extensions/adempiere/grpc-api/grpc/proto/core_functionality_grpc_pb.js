@@ -97,6 +97,17 @@ function deserialize_data_GetCountryRequest(buffer_arg) {
   return proto_core_functionality_pb.GetCountryRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_data_GetSystemInfoRequest(arg) {
+  if (!(arg instanceof proto_core_functionality_pb.GetSystemInfoRequest)) {
+    throw new Error('Expected argument of type data.GetSystemInfoRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_data_GetSystemInfoRequest(buffer_arg) {
+  return proto_core_functionality_pb.GetSystemInfoRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_data_ListBusinessPartnersRequest(arg) {
   if (!(arg instanceof proto_core_functionality_pb.ListBusinessPartnersRequest)) {
     throw new Error('Expected argument of type data.ListBusinessPartnersRequest');
@@ -207,8 +218,31 @@ function deserialize_data_ListWarehousesResponse(buffer_arg) {
   return proto_core_functionality_pb.ListWarehousesResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_data_SystemInfo(arg) {
+  if (!(arg instanceof proto_core_functionality_pb.SystemInfo)) {
+    throw new Error('Expected argument of type data.SystemInfo');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_data_SystemInfo(buffer_arg) {
+  return proto_core_functionality_pb.SystemInfo.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var CoreFunctionalityService = exports.CoreFunctionalityService = {
+  // system information
+getSystemInfo: {
+    path: '/data.CoreFunctionality/GetSystemInfo',
+    requestStream: false,
+    responseStream: false,
+    requestType: proto_core_functionality_pb.GetSystemInfoRequest,
+    responseType: proto_core_functionality_pb.SystemInfo,
+    requestSerialize: serialize_data_GetSystemInfoRequest,
+    requestDeserialize: deserialize_data_GetSystemInfoRequest,
+    responseSerialize: serialize_data_SystemInfo,
+    responseDeserialize: deserialize_data_SystemInfo,
+  },
   // 	Get Country Information
 getCountry: {
     path: '/data.CoreFunctionality/GetCountry',

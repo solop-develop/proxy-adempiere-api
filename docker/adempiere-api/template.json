@@ -309,6 +309,7 @@
         "adempiere",
         "adempiere/common",
         "adempiere/common/api",
+        "adempiere/core",
         "adempiere/dashboard",
         "adempiere/dashboard/addons/user",
         "adempiere/dashboard/addons/tasks",

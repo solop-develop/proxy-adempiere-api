@@ -57,6 +57,17 @@ class CoreFunctionality {
     return this.coreFunctionality;
   }
 
+  // Get System Info
+  getSystemInfo (callback) {
+    const { GetSystemInfoRequest } = this.stubFile;
+    const request = new GetSystemInfoRequest();
+
+    this.getCoreFunctionalityService().getSystemInfo(
+      request,
+      callback
+    );
+  }
+
   // Get Country
   getCountry ({
     token,
