@@ -76,6 +76,10 @@ sed -i "s|STORE_URL_IMAGES|$STORE_URL_IMAGES|g" /var/www/proxy-adempiere-api/con
 sed -i "s|\"STORE_HTTP_BASED\"|$STORE_HTTP_BASED|g" /var/www/proxy-adempiere-api/config/local.json
 
 
+# Set env to scheduler
+sed -i "s|SCHEDULER_HOST|$SCHEDULER_HOST|g" /var/www/proxy-adempiere-api/config/local.json
+
+
 # Set env values to redis service
 sed -i "s|REDIS_HOST|$REDIS_HOST|g" /var/www/proxy-adempiere-api/config/local.json
 sed -i "s|REDIS_PORT|$REDIS_PORT|g" /var/www/proxy-adempiere-api/config/local.json
