@@ -319,6 +319,7 @@
         "adempiere/dictionary/search-info",
         "adempiere/general-ledger",
         "adempiere/general-ledger/accouting-combination",
+        "adempiere/img",
         "adempiere/material-management",
         "adempiere/material-management/product-attribute",
         "adempiere/material-management/warehouse-locator",
@@ -369,7 +370,8 @@
         "adempiere/order",
         "adempiere/payment",
         "adempiere/product",
-        "adempiere/record-management"
+        "adempiere/record-management",
+        "adempiere/resource"
       ],
       "images": {
         "baseUrl": "API_URL_IMAGES",
