@@ -1,6 +1,23 @@
+/************************************************************************************
+ * Copyright (C) 2018-present E.R.P. Consultores y Asociados, C.A.                  *
+ * Contributor(s): Edwin Betancourt EdwinBetanc0urt@outlook.com                     *
+ * This program is free software: you can redistribute it and/or modify             *
+ * it under the terms of the GNU General Public License as published by             *
+ * the Free Software Foundation, either version 2 of the License, or                *
+ * (at your option) any later version.                                              *
+ * This program is distributed in the hope that it will be useful,                  *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of                   *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the                     *
+ * GNU General Public License for more details.                                     *
+ * You should have received a copy of the GNU General Public License                *
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.            *
+ ************************************************************************************/
+
+import { Router } from 'express';
+import { ExtensionAPIFunctionParameter } from '@storefront-api/lib/module';
+
 import { downloadImage, fit, identify, resize } from '@storefront-api/lib/image';
 import mime from 'mime-types';
-import URL from 'url';
 
 const SUPPORTED_ACTIONS = ['fit', 'resize', 'identify'];
 const SUPPORTED_MIMETYPES = [
@@ -11,11 +28,10 @@ const SUPPORTED_MIMETYPES = [
   'image/webp',
   'image/svg+xml'
 ];
-const ONE_YEAR = 31557600000;
 
-const asyncMiddleware = fn => (req, res, next) => {
-  Promise.resolve(fn(req, res, next)).catch(next);
-};
+const MINUTES = 5
+
+const CACHE_EXPIRATION = 60 * MINUTES
 
 //  Get Image from gRPC
 function getResource (service, resourceName, token) {
@@ -51,16 +67,26 @@ function getResource (service, resourceName, token) {
  *
  * Details: https://sfa-docs.now.sh/guide/default-modules/api.html#img
  */
-export default ({ config, db, service: parentService }) => {
-  return asyncMiddleware(async (req, res, body) => {
+module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
+  const api = Router();
+  const ServiceApi = require('./grpc-api/services/fileManagement');
+  const service = new ServiceApi(config);
+
+  /**
+   * GET Image
+   *
+   */
+  api.get('/', async (req, res) => {
     if (!(req.method === 'GET')) {
       res.set('Allow', 'GET');
       return res.status(405).send('Method Not Allowed');
     }
-    const ServiceApi = require('./grpc-api/services/fileManagement');
-    const service = new ServiceApi(config);
 
-    req.socket.setMaxListeners(config.imageable.maxListeners || 50);
+    // const modules = config.get('modules');
+    const imageable = config.get('imageable') as any;
+    // const modules = config.get('modules');
+
+    req.socket.setMaxListeners(imageable.maxListeners || 50);
 
     let width;
     let height;
@@ -68,11 +94,13 @@ export default ({ config, db, service: parentService }) => {
     let imgUrl;
     let resourceName;
     const token = req.headers.authorization || req.query.token;
+    const modules = config.get('modules') as any;
+
     if (req.query.url) {
       // url provided as the query param
-      imgUrl = decodeURIComponent(req.query.url);
-      width = parseInt(req.query.width);
-      height = parseInt(req.query.height);
+      imgUrl = decodeURIComponent(req.query.url as any);
+      width = parseInt(req.query.width as any);
+      height = parseInt(req.query.height as any);
       action = req.query.action;
       resourceName = req.query.url;
     } else {
@@ -81,7 +109,8 @@ export default ({ config, db, service: parentService }) => {
       height = parseInt(urlParts[2]);
       action = urlParts[3];
       resourceName = urlParts[4];
-      imgUrl = `${config.modules.adempiereApi.images.baseUrl}/${urlParts
+
+      imgUrl = `${modules.adempiereApi.images.baseUrl}/${urlParts
         .slice(4)
         .join('/')}`; // full original image url
       if (urlParts.length < 4) {
@@ -100,14 +129,14 @@ export default ({ config, db, service: parentService }) => {
       });
     }
     if (
-      width > config.imageable.imageSizeLimit ||
+      width > imageable.imageSizeLimit ||
       width < 0 ||
-      height > config.imageable.imageSizeLimit ||
+      height > imageable.imageSizeLimit ||
       height < 0
     ) {
       return res.status(400).send({
         code: 400,
-        result: `Width and height must have a value between 0 and ${config.imageable.imageSizeLimit}`
+        result: `Width and height must have a value between 0 and ${imageable.imageSizeLimit}`
       });
     }
     const mimeType = mime.lookup(imgUrl);
@@ -122,7 +151,7 @@ export default ({ config, db, service: parentService }) => {
     );
 
     let buffer;
-    if (config.modules.adempiereApi.images.httpBased) {
+    if (modules.adempiereApi.images.httpBased) {
       try {
         buffer = await downloadImage(imgUrl);
       } catch (err) {
@@ -146,40 +175,21 @@ export default ({ config, db, service: parentService }) => {
       case 'resize':
         return res
           .type(mimeType)
-          .set({ 'Cache-Control': `max-age=${ONE_YEAR}` })
+          .set({ 'Cache-Control': `max-age=${CACHE_EXPIRATION}` })
           .send(await resize(buffer, width, height));
       case 'fit':
         return res
           .type(mimeType)
-          .set({ 'Cache-Control': `max-age=${ONE_YEAR}` })
+          .set({ 'Cache-Control': `max-age=${CACHE_EXPIRATION}` })
           .send(await fit(buffer, width, height));
       case 'identify':
         return res
-          .set({ 'Cache-Control': `max-age=${ONE_YEAR}` })
+          .set({ 'Cache-Control': `max-age=${CACHE_EXPIRATION}` })
           .send(await identify(buffer));
       default:
         throw new Error('Unknown action');
     }
   });
-}
 
-function _isUrlWhitelisted (url, whitelistType, defaultValue, whitelist) {
-  if (arguments.length !== 4) throw new Error('params are not optional!');
-
-  if (whitelist && whitelist.hasOwnProperty(whitelistType)) {
-    const requestedHost = URL.parse(url).host;
-    const matches = whitelist[whitelistType].map(allowedHost => {
-      allowedHost =
-        allowedHost instanceof RegExp ? allowedHost : new RegExp(allowedHost);
-      return !!requestedHost.match(allowedHost);
-    });
-
-    return matches.indexOf(true) > -1;
-  } else {
-    return defaultValue;
-  }
-}
-
-function isImageSourceHostAllowed (url, whitelist) {
-  return _isUrlWhitelisted(url, 'allowedHosts', true, whitelist);
-}
+  return api;
+};
