@@ -2750,6 +2750,7 @@ class PointOfSales {
     // DSL
     posId,
     customerId,
+    documentTypeId,
     searchValue,
     pageSize,
     pageToken
@@ -2762,6 +2763,9 @@ class PointOfSales {
     );
     request.setCustomerId(
       getValidInteger(customerId)
+    );
+    request.setDocumentTypeId(
+      getValidInteger(documentTypeId)
     );
     request.setPageSize(
       getValidInteger(pageSize)

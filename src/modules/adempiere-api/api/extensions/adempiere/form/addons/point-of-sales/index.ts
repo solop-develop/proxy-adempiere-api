@@ -243,7 +243,8 @@ function convertAvailablePaymentMethod (availablePaymentMethod) {
       is_payment_reference: availablePaymentMethod.getIsPaymentReference(),
       payment_method: convertPaymentMethod(
         availablePaymentMethod.getPaymentMethod()
-      )
+      ),
+      document_type_id: availablePaymentMethod.getDocumentTypeId()
     }
   }
   return undefined;

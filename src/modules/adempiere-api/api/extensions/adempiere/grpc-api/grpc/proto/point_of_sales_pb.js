@@ -13,13 +13,7 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() {
-  if (this) { return this; }
-  if (typeof window !== 'undefined') { return window; }
-  if (typeof global !== 'undefined') { return global; }
-  if (typeof self !== 'undefined') { return self; }
-  return Function('return this')();
-}.call(null));
+var global = Function('return this')();
 
 var proto_core_functionality_pb = require('../proto/core_functionality_pb.js');
 goog.object.extend(proto, proto_core_functionality_pb);
@@ -21895,7 +21889,8 @@ proto.data.AvailablePaymentMethod.toObject = function(includeInstance, msg) {
     refundReferenceCurrency: (f = msg.getRefundReferenceCurrency()) && proto_core_functionality_pb.Currency.toObject(includeInstance, f),
     referenceCurrency: (f = msg.getReferenceCurrency()) && proto_core_functionality_pb.Currency.toObject(includeInstance, f),
     isPaymentReference: jspb.Message.getBooleanFieldWithDefault(msg, 14, false),
-    paymentMethod: (f = msg.getPaymentMethod()) && proto.data.PaymentMethod.toObject(includeInstance, f)
+    paymentMethod: (f = msg.getPaymentMethod()) && proto.data.PaymentMethod.toObject(includeInstance, f),
+    documentTypeId: jspb.Message.getFieldWithDefault(msg, 16, 0)
   };
 
   if (includeInstance) {
@@ -21992,6 +21987,10 @@ proto.data.AvailablePaymentMethod.deserializeBinaryFromReader = function(msg, re
       var value = new proto.data.PaymentMethod;
       reader.readMessage(value,proto.data.PaymentMethod.deserializeBinaryFromReader);
       msg.setPaymentMethod(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDocumentTypeId(value);
       break;
     default:
       reader.skipField();
@@ -22123,6 +22122,13 @@ proto.data.AvailablePaymentMethod.serializeBinaryToWriter = function(message, wr
       15,
       f,
       proto.data.PaymentMethod.serializeBinaryToWriter
+    );
+  }
+  f = message.getDocumentTypeId();
+  if (f !== 0) {
+    writer.writeInt32(
+      16,
+      f
     );
   }
 };
@@ -22472,6 +22478,24 @@ proto.data.AvailablePaymentMethod.prototype.clearPaymentMethod = function() {
  */
 proto.data.AvailablePaymentMethod.prototype.hasPaymentMethod = function() {
   return jspb.Message.getField(this, 15) != null;
+};
+
+
+/**
+ * optional int32 document_type_id = 16;
+ * @return {number}
+ */
+proto.data.AvailablePaymentMethod.prototype.getDocumentTypeId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.data.AvailablePaymentMethod} returns this
+ */
+proto.data.AvailablePaymentMethod.prototype.setDocumentTypeId = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
 };
 
 
@@ -50791,7 +50815,8 @@ proto.data.ListCustomerCreditsRequest.toObject = function(includeInstance, msg) 
     pageToken: jspb.Message.getFieldWithDefault(msg, 2, ""),
     searchValue: jspb.Message.getFieldWithDefault(msg, 3, ""),
     posId: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    customerId: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    customerId: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    documentTypeId: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -50847,6 +50872,10 @@ proto.data.ListCustomerCreditsRequest.deserializeBinaryFromReader = function(msg
     case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCustomerId(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDocumentTypeId(value);
       break;
     default:
       reader.skipField();
@@ -50909,6 +50938,13 @@ proto.data.ListCustomerCreditsRequest.serializeBinaryToWriter = function(message
   if (f !== 0) {
     writer.writeInt32(
       5,
+      f
+    );
+  }
+  f = message.getDocumentTypeId();
+  if (f !== 0) {
+    writer.writeInt32(
+      6,
       f
     );
   }
@@ -51002,6 +51038,24 @@ proto.data.ListCustomerCreditsRequest.prototype.getCustomerId = function() {
  */
 proto.data.ListCustomerCreditsRequest.prototype.setCustomerId = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional int32 document_type_id = 6;
+ * @return {number}
+ */
+proto.data.ListCustomerCreditsRequest.prototype.getDocumentTypeId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.data.ListCustomerCreditsRequest} returns this
+ */
+proto.data.ListCustomerCreditsRequest.prototype.setDocumentTypeId = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
