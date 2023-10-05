@@ -259,17 +259,20 @@ module.exports = ({ config }: ExtensionAPIFunctionParameter) => {
         //  Running parameters
         id: req.body.id,
         uuid: req.body.uuid,
-        tableName: req.body.table_name,
-        recordId: req.body.record_id,
-        recordUuid: req.body.record_uuid,
-        tableSelectedId: req.body.table_selected_id,
+        parametersList: req.body.parameters,
+        // report
         reportType: req.body.report_type,
         printFormatId: req.body.print_format_id,
         printFormatUuid: req.body.print_format_uuid,
         reportViewId: req.body.report_view_id,
         reportViewUuid: req.body.report_view_uuid,
         isSummary: req.body.is_summary,
-        parametersList: req.body.parameters,
+        // window
+        tableName: req.body.table_name,
+        recordId: req.body.record_id,
+        recordUuid: req.body.record_uuid,
+        // browser
+        browserId: req.body.browser_id,
         selectionsList: req.body.selections
       }, (err, response) => {
         if (response) {
