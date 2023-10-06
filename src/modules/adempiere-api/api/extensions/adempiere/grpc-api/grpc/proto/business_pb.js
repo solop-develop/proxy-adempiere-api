@@ -23,6 +23,8 @@ var global = (function() {
 
 var proto_base_data_type_pb = require('../proto/base_data_type_pb.js');
 goog.object.extend(proto, proto_base_data_type_pb);
+var google_api_annotations_pb = require('../google/api/annotations_pb.js');
+goog.object.extend(proto, google_api_annotations_pb);
 goog.exportSymbol('proto.data.Callout', null, global);
 goog.exportSymbol('proto.data.ChatEntry', null, global);
 goog.exportSymbol('proto.data.ChatEntry.ChatEntryType', null, global);
@@ -11496,7 +11498,8 @@ proto.data.RunBusinessProcessRequest.toObject = function(includeInstance, msg) {
     parametersList: jspb.Message.toObjectList(msg.getParametersList(),
     proto_base_data_type_pb.KeyValue.toObject, includeInstance),
     selectionsList: jspb.Message.toObjectList(msg.getSelectionsList(),
-    proto_base_data_type_pb.KeyValueSelection.toObject, includeInstance)
+    proto_base_data_type_pb.KeyValueSelection.toObject, includeInstance),
+    browserId: jspb.Message.getFieldWithDefault(msg, 15, 0)
   };
 
   if (includeInstance) {
@@ -11590,6 +11593,10 @@ proto.data.RunBusinessProcessRequest.deserializeBinaryFromReader = function(msg,
       var value = new proto_base_data_type_pb.KeyValueSelection;
       reader.readMessage(value,proto_base_data_type_pb.KeyValueSelection.deserializeBinaryFromReader);
       msg.addSelections(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setBrowserId(value);
       break;
     default:
       reader.skipField();
@@ -11718,6 +11725,13 @@ proto.data.RunBusinessProcessRequest.serializeBinaryToWriter = function(message,
       14,
       f,
       proto_base_data_type_pb.KeyValueSelection.serializeBinaryToWriter
+    );
+  }
+  f = message.getBrowserId();
+  if (f !== 0) {
+    writer.writeInt32(
+      15,
+      f
     );
   }
 };
@@ -12012,6 +12026,24 @@ proto.data.RunBusinessProcessRequest.prototype.addSelections = function(opt_valu
  */
 proto.data.RunBusinessProcessRequest.prototype.clearSelectionsList = function() {
   return this.setSelectionsList([]);
+};
+
+
+/**
+ * optional int32 browser_id = 15;
+ * @return {number}
+ */
+proto.data.RunBusinessProcessRequest.prototype.getBrowserId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.data.RunBusinessProcessRequest} returns this
+ */
+proto.data.RunBusinessProcessRequest.prototype.setBrowserId = function(value) {
+  return jspb.Message.setProto3IntField(this, 15, value);
 };
 
 

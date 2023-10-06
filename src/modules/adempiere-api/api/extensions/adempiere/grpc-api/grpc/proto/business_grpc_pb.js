@@ -19,6 +19,7 @@
 var grpc = require('@grpc/grpc-js');
 var proto_business_pb = require('../proto/business_pb.js');
 var proto_base_data_type_pb = require('../proto/base_data_type_pb.js');
+var google_api_annotations_pb = require('../google/api/annotations_pb.js');
 
 function serialize_data_Callout(arg) {
   if (!(arg instanceof proto_business_pb.Callout)) {

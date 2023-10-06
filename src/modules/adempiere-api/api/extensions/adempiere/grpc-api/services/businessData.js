@@ -74,7 +74,8 @@ class BusinessData {
     reportViewUuid,
     isSummary,
     parametersList,
-    tableSelectedId,
+    //
+    browserId,
     selectionsList
   }, callback) {
     const { RunBusinessProcessRequest } = this.stubFile;
@@ -127,10 +128,10 @@ class BusinessData {
       });
     }
 
-    request.setTableSelectedId(
-      getValidInteger(tableSelectedId)
+    // process of browser
+    request.setBrowserId(
+      getValidInteger(browserId)
     );
-    // browser records selections list
     if (!isEmptyValue(selectionsList)) {
       const { getKeyValueSelectionToGRPC } = require('../utils/baseDataTypeToGRPC.js');
 
